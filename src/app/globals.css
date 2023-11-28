@@ -13,3 +13,7 @@ body {
   font-family: var(--custom-font);
   color: #2f2f2f;
 }
+
+.min-h-list {
+  min-height: calc(100vh - 150px);
+}

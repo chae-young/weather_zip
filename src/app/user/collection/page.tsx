@@ -27,7 +27,7 @@ const Collection = async ({
       <TopTitle title="컬렉션" />
       <InnerCon>
         <Tab />
-        <ul className="flex flex-wrap gap-[1px] min-h-[800px] content-start">
+        <ul className="flex flex-wrap gap-[1px] min-h-list content-start pb-5">
           <CollectionList collections={collections} />
           {collections.length >= dataLimit && (
             <LoadMoreCollection
