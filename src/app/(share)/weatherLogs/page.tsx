@@ -15,7 +15,7 @@ const WeatherLogs = async () => {
     <>
       <TopTitle title="날씨로그" />
       <InnerCon>
-        <ul className="min-h-[800px] px-5">
+        <ul className="min-h-[800px] px-5 pb-5">
           <WeatherLogList weatherLogs={weatherLogs} />
           <LoadMoreLogs
             firstDataLength={weatherLogs.length}

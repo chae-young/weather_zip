@@ -1,17 +1,42 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../../../firebase/firebasedb'
+
 interface WideButtonProps {
   type: 'submit' | 'button' | 'reset'
   onClick?: () => void
   content: string
   status?: string
+  data?: object
 }
 
-const WideButton = ({ type, onClick, content, status }: WideButtonProps) => {
-  const handleOnClick = () => {
+const WideButton = ({
+  type,
+  onClick,
+  content,
+  status,
+  data,
+}: WideButtonProps) => {
+  const router = useRouter()
+
+  const handleOnClick = async () => {
     switch (status) {
       case 'upload':
-        console.log('피드에 올리기')
+        const newData = {
+          ...data,
+          timestamp: serverTimestamp(),
+        }
+        try {
+          const docRdf = await addDoc(collection(db, 'weatherlog'), {
+            ...newData,
+          })
+          router.push('/weatherLogs')
+        } catch (err) {
+          console.error(err)
+        }
+
       default:
         console.log('')
     }

@@ -38,6 +38,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
   const currentWeather = {
     temp: recordData?.weather.temp,
     icon: recordData?.weather.icon,
+    address: recordData?.address,
   }
 
   return (
@@ -68,6 +69,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
                   type="button"
                   content="피드에 올리기"
                   status="upload"
+                  data={recordData}
                 />
               </BottomRoundedCon>
             </InnerCon>
