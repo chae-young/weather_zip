@@ -17,7 +17,7 @@ export const fetchWeatherLogs = async ({
   lastDoc: any
 }) => {
   const q = query(
-    collection(db, 'collection'),
+    collection(db, 'weatherlog'),
     orderBy('timestamp', 'desc'),
     //startAfter(timestamp),
     ...(lastDoc ? [startAt(lastDoc)] : []),
