@@ -3,15 +3,17 @@ import { useEffect, useState } from 'react'
 interface LocationType {
   loaded: boolean
   coordinates: { lat: number; lng: number }
-  error?: { code: number; message: string }
+  error?: { code: number; message: string } | null
 }
 
 const useGeolocation = () => {
   const [location, setLocation] = useState<LocationType>({
     loaded: false,
+    error: null,
     coordinates: { lat: 0, lng: 0 },
   })
 
+  // 성공했을 경우
   const onSuccess = (position: {
     coords: { latitude: number; longitude: number }
   }) => {
@@ -28,7 +30,10 @@ const useGeolocation = () => {
     setLocation({
       loaded: true,
       coordinates: { lat: 0, lng: 0 },
-      error,
+      error: {
+        code: 1,
+        message: 'GPS를 허용해주세요.',
+      },
     })
   }
 
@@ -39,6 +44,7 @@ const useGeolocation = () => {
   }
 
   useEffect(() => {
+    // geolocation을 지원하지 않는경우
     if (!('geolocation' in navigator)) {
       onError({
         code: 0,

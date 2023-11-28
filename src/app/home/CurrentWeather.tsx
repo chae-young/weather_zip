@@ -9,8 +9,15 @@ import SkeletonCurrentWeather from './_skeleton/SkeletonCurrentWeather'
 import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
 
 const CurrentWeather = () => {
-  const { currentWeather, loaded, isLoading, isValidating } =
+  const { currentWeather, loaded, isLoading, isValidating, locationError } =
     useGetCurrentWeather()
+
+  // error시 처리
+  if (locationError?.code === 1) {
+    alert(locationError.message)
+    return <SkeletonCurrentWeather />
+  }
+
   const icon = currentWeather.icon && currentWeather.icon.substring(0, 2)
 
   if (!loaded || isLoading || isValidating) {

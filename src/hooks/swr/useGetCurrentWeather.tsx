@@ -29,7 +29,7 @@ const fetcher = (url: string): Promise<TcurrentWeather> => {
 }
 
 const useGetCurrentWeather = () => {
-  const { coordinates, loaded } = useGeolocation()
+  const { coordinates, loaded, error: locationError } = useGeolocation()
   const [currentTemp, setCurrentTemp] = useRecoilState(currentTempAtom)
   const { currentAddress } = useGetAddress(coordinates.lat, coordinates.lng)
 
@@ -56,6 +56,7 @@ const useGetCurrentWeather = () => {
     currentWeather,
     loaded,
     coordinates,
+    locationError,
     isLoading,
     isValidating,
     error,
