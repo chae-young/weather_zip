@@ -33,6 +33,7 @@ const WideButton = ({
             ...newData,
           })
           router.push('/weatherLogs')
+          router.refresh()
         } catch (err) {
           console.error(err)
         }
