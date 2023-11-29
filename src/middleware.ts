@@ -15,9 +15,9 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     },
   })
 
-  if (responseAPI.status !== 200) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+  // if (responseAPI.status !== 200) {
+  //   return NextResponse.redirect(new URL('/login', request.url))
+  // }
 
   return NextResponse.next()
 }
