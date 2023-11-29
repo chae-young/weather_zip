@@ -1,4 +1,4 @@
-import { Tcollection } from '@/hooks/swr/useGetCollection'
+import { Tcollection } from '@/hooks/swr/useGetLogs'
 import { Timestamp } from 'firebase/firestore'
 
 export const newLastDoc = (originalLastDoc: Tcollection) => {

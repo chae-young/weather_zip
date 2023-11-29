@@ -12,7 +12,7 @@ import useSWRInfinite from 'swr/infinite'
 
 export type Tcollection = {
   id: string
-  timestamp: Date
+  timestamp: any
   address: string
   each_image: string[]
   fullbody_image: string
