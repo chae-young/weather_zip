@@ -6,17 +6,17 @@ import RecoilRootProvider from './recoilRootProvider'
 const customFont = localFont({
   src: [
     {
-      path: './fonts/gmarketsanslight.woff',
+      path: './fonts/gmarketsanslight.ttf',
       weight: '300',
       style: 'normal',
     },
     {
-      path: './fonts/gmarketsansmedium.woff',
+      path: './fonts/gmarketsansmedium.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './fonts/gmarketsansbold.woff',
+      path: './fonts/gmarketsansbold.ttf',
       weight: '700',
       style: 'normal',
     },
