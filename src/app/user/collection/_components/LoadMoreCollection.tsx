@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
 import { fetchCollection } from '../fetchCollection'
 import CollectionList from './CollectionList'
 import { lastDocTimestamp } from '@/util/timestampChange'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 interface LoadMoreCollectionProps {
   lastDoc?: Tcollection | false
