@@ -1,5 +1,8 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase/firebasedb'
+import useSWR from 'swr'
+import { useRecoilValue } from 'recoil'
+import currentTempAtom from '@/recoil/atom/currentTempAtom'
 
 export interface IrecommendObject {
   title: string
@@ -9,8 +12,7 @@ export interface IrecommendObject {
   temp_max: number
   temp_min: number
 }
-
-export const fetchRecommendList = async (temp: number) => {
+const fetcher = async (temp: number) => {
   try {
     const q = query(collection(db, 'recommend'), where('temp_max', '>=', temp))
     const querySnapshot = await getDocs(q)
@@ -20,6 +22,7 @@ export const fetchRecommendList = async (temp: number) => {
       const data = doc.data() as IrecommendObject
 
       if (data.temp_min <= temp) {
+        console.log(data)
         res.push(data)
       }
     })
@@ -27,5 +30,22 @@ export const fetchRecommendList = async (temp: number) => {
   } catch (err) {
     console.error(err)
     throw err
+  }
+}
+
+export const useGetRecommendList = () => {
+  const currentWeather = useRecoilValue(currentTempAtom)
+  const {
+    data: recommendList,
+    isValidating,
+    isLoading,
+  } = useSWR(`recommendation-${currentWeather.temp}`, () =>
+    fetcher(Number(currentWeather.temp)),
+  )
+
+  return {
+    recommendList,
+    isValidating,
+    isLoading,
   }
 }
