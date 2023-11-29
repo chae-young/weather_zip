@@ -38,6 +38,9 @@ const useGetCurrentWeather = () => {
       ? `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
       : null,
     fetcher,
+    {
+      revalidateOnFocus: false,
+    },
   )
 
   const currentWeather = {
