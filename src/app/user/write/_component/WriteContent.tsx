@@ -68,7 +68,6 @@ const WriteContent = ({ user }: WriteContentProps) => {
       throw err
     }
   }
-  console.log(currentWeather.temp)
 
   return (
     <>

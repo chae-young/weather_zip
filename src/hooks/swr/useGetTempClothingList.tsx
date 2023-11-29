@@ -19,16 +19,12 @@ const fetcher = async (temp: number) => {
     limit(10),
   )
   const querySnapshot = await getDocs(q)
-  querySnapshot.docs.forEach((doc) => {
-    console.log(doc, temp)
-  })
   const data: ItempClothing[] = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     fullbody_image: doc.data().fullbody_image,
     userId: doc.data().userId,
   }))
 
-  console.log(data)
   return data
 }
 

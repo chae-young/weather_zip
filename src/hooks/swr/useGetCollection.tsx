@@ -62,7 +62,6 @@ const fetcher = async (fetchInfo: any): Promise<Tcollection[]> => {
     },
   }))
 
-  console.log(data)
   return data
 }
 

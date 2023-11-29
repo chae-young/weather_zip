@@ -22,7 +22,6 @@ const fetcher = async (temp: number) => {
       const data = doc.data() as IrecommendObject
 
       if (data.temp_min <= temp) {
-        console.log(data)
         res.push(data)
       }
     })

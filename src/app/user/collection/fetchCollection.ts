@@ -56,6 +56,5 @@ export const fetchCollection = async ({
     },
   }))
 
-  console.log(data)
   return data
 }

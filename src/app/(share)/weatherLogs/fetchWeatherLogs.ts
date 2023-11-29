@@ -55,6 +55,5 @@ export const fetchWeatherLogs = async ({
     },
   }))
 
-  console.log(data)
   return data
 }

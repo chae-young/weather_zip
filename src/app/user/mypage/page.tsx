@@ -9,7 +9,6 @@ import { fetchCollectionLeng } from './fetchCollectionLeng'
 const Mypage = async () => {
   const allCollectionImageLeng = await fetchCollectionLeng()
   const user = await fetchUser()
-  console.log(user)
   return (
     <>
       <TopTitle title="마이페이지" />
