@@ -22,7 +22,6 @@ const LoadMoreCollection = ({
 }: LoadMoreCollectionProps) => {
   const [collections, setCollections] = useState<Tcollection[]>([])
   const [dataLength, setdataLength] = useState(firstDataLength)
-  console.log(collections)
 
   const fetchMoreData = () => {
     if (lastDoc) {
@@ -32,7 +31,7 @@ const LoadMoreCollection = ({
           setdataLength(collections.length)
         })
         .catch((error: unknown) => {
-          console.log(error)
+          console.error(error)
         })
     }
   }
