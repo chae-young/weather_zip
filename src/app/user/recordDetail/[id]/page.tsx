@@ -33,7 +33,7 @@ const fetcher = async (id: string) => {
 
 const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
   const recordData = await fetcher(params.id)
-  const desc = `이날 성남시 날씨는 ${recordData?.weather.temp}°C 에요.
+  const desc = `이날 ${recordData?.address} 날씨는 ${recordData?.weather.temp}°C 에요.
 옷차림이 맘에 드시나요?`
   const currentWeather = {
     temp: recordData?.weather.temp,
@@ -50,6 +50,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
             <InnerCon>
               <SubWeatherCon
                 desc={desc}
+                id={params.id}
                 currentWeather={
                   currentWeather || {
                     temp: '',
