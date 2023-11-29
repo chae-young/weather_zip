@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 interface CollectionListProps {
   collections: Tcollection[]
