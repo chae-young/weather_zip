@@ -23,7 +23,7 @@ const useImageUpload = ({ type }: ImageUploadProps) => {
     uploadTask.on(
       'state_changed',
       (snapshot) => {
-        console.log('업로드중')
+        // console.log('업로드중')
         setUploadIng(true)
       },
       (error) => {
@@ -38,7 +38,7 @@ const useImageUpload = ({ type }: ImageUploadProps) => {
       () => {
         e.target.value = ''
         getDownloadURL(storageRef).then((downloadURL) => {
-          console.log('file', downloadURL)
+          // console.log('file', downloadURL)
           setUploadIng(false)
           if (type === 'multi') setImageList((prev) => [downloadURL, ...prev])
           setImageURL(downloadURL)

@@ -9,7 +9,7 @@ import {
   where,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 export const fetchCollection = async ({
   tempMin,
@@ -44,6 +44,7 @@ export const fetchCollection = async ({
   const data: Tcollection[] = querySnapshot.docs.map((doc) => ({
     id: doc.id,
     timestamp: doc.data().timestamp,
+    nickname: doc.data().nickname,
     address: doc.data().address,
     each_image: doc.data().each_image,
     fullbody_image: doc.data().fullbody_image,
@@ -55,6 +56,5 @@ export const fetchCollection = async ({
     },
   }))
 
-  console.log(data)
   return data
 }

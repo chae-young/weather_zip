@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 interface CollectionListProps {
   collections: Tcollection[]
@@ -10,7 +10,7 @@ interface CollectionListProps {
 
 const CollectionList = ({ collections }: CollectionListProps) => {
   return collections.map((collection) => (
-    <li className="w-[49.86%] h-44" key={collection.id}>
+    <li className="w-[49.82%] h-44" key={collection.id}>
       <Link
         href={`/user/recordDetail/${collection.id}`}
         className="block relative h-full"

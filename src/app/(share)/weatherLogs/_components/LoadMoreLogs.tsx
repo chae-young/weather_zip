@@ -1,9 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
-import { fetchWeatherLogs } from '../fetchWeatherLogs'
+import { Tcollection, fetchWeatherLogs } from '../fetchWeatherLogs'
 import WeatherLogList from './WeatherLogList'
 import { lastDocTimestamp } from '@/util/timestampChange'
 
@@ -24,7 +23,7 @@ const LoadMoreLogs = ({ lastDoc, firstDataLength }: LoadMoreLogsProps) => {
           setdataLength(weatherLogs.length)
         })
         .catch((error: unknown) => {
-          console.log(error)
+          console.error(error)
         })
     }
   }

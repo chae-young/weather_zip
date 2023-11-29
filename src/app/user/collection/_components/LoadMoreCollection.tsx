@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
 import { fetchCollection } from '../fetchCollection'
 import CollectionList from './CollectionList'
 import { lastDocTimestamp } from '@/util/timestampChange'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 interface LoadMoreCollectionProps {
   lastDoc?: Tcollection | false
@@ -22,7 +22,6 @@ const LoadMoreCollection = ({
 }: LoadMoreCollectionProps) => {
   const [collections, setCollections] = useState<Tcollection[]>([])
   const [dataLength, setdataLength] = useState(firstDataLength)
-  console.log(collections)
 
   const fetchMoreData = () => {
     if (lastDoc) {
@@ -32,7 +31,7 @@ const LoadMoreCollection = ({
           setdataLength(collections.length)
         })
         .catch((error: unknown) => {
-          console.log(error)
+          console.error(error)
         })
     }
   }

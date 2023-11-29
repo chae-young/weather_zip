@@ -9,8 +9,15 @@ import SkeletonCurrentWeather from './_skeleton/SkeletonCurrentWeather'
 import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
 
 const CurrentWeather = () => {
-  const { currentWeather, loaded, isLoading, isValidating } =
+  const { currentWeather, loaded, isLoading, isValidating, locationError } =
     useGetCurrentWeather()
+
+  // error시 처리
+  if (locationError?.code === 1) {
+    alert(locationError.message)
+    return <SkeletonCurrentWeather />
+  }
+
   const icon = currentWeather.icon && currentWeather.icon.substring(0, 2)
 
   if (!loaded || isLoading || isValidating) {
@@ -20,8 +27,9 @@ const CurrentWeather = () => {
   return (
     <article
       className="
-    before:content-[''] before:absolute before:-left-20 before:top-6 before:bg-[url(/images/main-cloud.svg)] before:w-40 before:h-24 before:bg-no-repeat before:bg-contain
-    after:content-[''] after:absolute after:-right-12 after:bottom-[60%] after:bg-[url(/images/main-cloud.svg)] after:w-40 after:h-24 after:bg-no-repeat after:bg-contain
+      relative
+    before:content-[''] before:absolute before:-left-[100%] before:top-4 before:bg-[url(/images/main-cloud.svg)] before:w-40 before:h-24 before:bg-no-repeat before:bg-contain
+    after:content-[''] after:absolute after:-right-[90%] after:bottom-0 after:bg-[url(/images/main-cloud.svg)] after:w-40 after:h-24 after:bg-no-repeat after:bg-contain
     before:animate-shake before:animate-infinite before:animate-duration-[10000ms] before:animate-ease-linear
     after:animate-shake after:animate-infinite after:animate-duration-[10000ms] after:animate-ease-linear
 

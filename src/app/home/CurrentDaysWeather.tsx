@@ -37,6 +37,9 @@ const CurrentDaysWeather = () => {
       ? `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&cnt=10&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
       : null,
     fetcher,
+    {
+      revalidateOnFocus: false,
+    },
   )
 
   if (!loaded || isLoading || isValidating) {

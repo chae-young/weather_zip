@@ -52,11 +52,11 @@ const WriteContent = ({ user }: WriteContentProps) => {
         id,
         userId: user?.uid,
         nickname: user?.nickname,
-        address: '성남시',
+        address: currentWeather.address,
         timestamp: serverTimestamp(),
         weather: {
           temp: currentWeather?.temp,
-          desc: currentWeather?.temp,
+          desc: currentWeather?.desc,
           icon: currentWeather?.icon,
         },
         fullbody_image: imageURL,
@@ -71,7 +71,7 @@ const WriteContent = ({ user }: WriteContentProps) => {
 
   return (
     <>
-      {currentWeather.temp ? (
+      {currentWeather.temp !== undefined ? (
         <SubWeatherCon desc={desc} currentWeather={currentWeather} />
       ) : (
         <SkeletonInfoWeather />

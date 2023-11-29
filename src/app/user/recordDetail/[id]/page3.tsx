@@ -24,8 +24,6 @@ const recordDetail = () => {
   }
 
   if (isValidating) return <SkeletonInfoWeather />
-  console.log(data?.fullbody_image)
-  //
 
   return (
     <div className="bg-pointSubBg">

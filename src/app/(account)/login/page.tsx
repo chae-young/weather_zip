@@ -11,7 +11,7 @@ import {
   signInWithRedirect,
   getRedirectResult,
 } from 'firebase/auth'
-import { auth, emailProvider } from '../../../../firebase/firebasedb'
+import { auth, db, emailProvider } from '../../../../firebase/firebasedb'
 import { FirebaseError } from 'firebase/app'
 import Image from 'next/image'
 import { useRecoilState } from 'recoil'
@@ -19,6 +19,7 @@ import userAtom from '@/recoil/atom/userAtom'
 import useInputChange from '@/hooks/useInputChange'
 import InputField from '../../_components/InputField'
 import WideButton from '../../_components/Button/WideButton'
+import { addDoc, collection } from 'firebase/firestore'
 
 const Login = () => {
   const router = useRouter()
@@ -83,6 +84,12 @@ const Login = () => {
           Authorization: `Bearer ${await user?.getIdToken()}`,
         },
       }).then((response) => {
+        const userRef = collection(db, 'users')
+        addDoc(userRef, {
+          uid: user.uid,
+          email: user.email,
+          nickname: user.displayName,
+        })
         if (response.status === 200) {
           router.back()
         }
@@ -123,6 +130,7 @@ const Login = () => {
 
       if (response.status === 200) {
         router.back()
+        router.refresh()
         //router.push('/home')
       }
     } catch (error: unknown) {
@@ -149,7 +157,7 @@ const Login = () => {
 
   return (
     <div className="px-5">
-      <h1 className="mb-2 mt-20">
+      <h1 className="mb-2 pt-20">
         <Image
           src="/images/logo.svg"
           alt="날씨.zip"

@@ -37,6 +37,7 @@ const CategoryList = () => {
 
     if (response.status === 200) {
       router.push('/')
+      router.refresh()
     }
   }
 

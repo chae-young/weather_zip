@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 import weatherIcons from '@/util/weatherIcons'
 import ImageFeed from '@/app/_components/collection/ImageFeed'
-import { Tcollection } from '@/hooks/swr/useGetCollection'
 import { toDateTime } from '@/util/timestampChange'
+import { Tcollection } from '../fetchWeatherLogs'
 
 interface WeatherLogListProps {
   weatherLogs: Tcollection[]
@@ -36,7 +36,7 @@ const WeatherLogList = ({ weatherLogs }: WeatherLogListProps) => {
                 alt={weatherLog.weather.desc}
                 className="mr-1"
               />
-              맑음
+              {weatherLog.weather.desc}
             </span>
             <span className="bg-[#f5f5f5] rounded-2xl flex justify-center items-center h-6 px-3 text-body4">
               {`${weatherLog.weather.temp}℃`}

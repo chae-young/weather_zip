@@ -1,5 +1,5 @@
-import { Tcollection } from '@/hooks/swr/useGetCollection'
 import { Timestamp } from 'firebase/firestore'
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 
 export const newLastDoc = (originalLastDoc: Tcollection) => {
   return {

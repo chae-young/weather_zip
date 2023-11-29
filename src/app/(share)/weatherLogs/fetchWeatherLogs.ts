@@ -9,6 +9,21 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
 
+export type Tcollection = {
+  id: string
+  nickname: string
+  timestamp: any
+  address: string
+  each_image: string[]
+  fullbody_image: string
+  userId: string
+  weather: {
+    temp: number
+    icon: string
+    desc: string
+  }
+}
+
 export const fetchWeatherLogs = async ({
   dataLimit,
   lastDoc,
@@ -17,7 +32,7 @@ export const fetchWeatherLogs = async ({
   lastDoc: any
 }) => {
   const q = query(
-    collection(db, 'collection'),
+    collection(db, 'weatherlog'),
     orderBy('timestamp', 'desc'),
     //startAfter(timestamp),
     ...(lastDoc ? [startAt(lastDoc)] : []),
@@ -27,6 +42,7 @@ export const fetchWeatherLogs = async ({
   const querySnapshot = await getDocs(q)
   const data = querySnapshot.docs.map((doc) => ({
     id: doc.id,
+    nickname: doc.data().nickname,
     timestamp: doc.data().timestamp,
     address: doc.data().address,
     each_image: doc.data().each_image,
@@ -39,6 +55,5 @@ export const fetchWeatherLogs = async ({
     },
   }))
 
-  console.log(data)
   return data
 }

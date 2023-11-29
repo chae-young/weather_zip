@@ -20,7 +20,7 @@ const fetcher = async (id: string) => {
     const docRef = doc(db, 'collection', `${id}`)
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
-      console.log('Document data:', docSnap.data())
+      //console.log('Document data:', docSnap.data())
       return docSnap.data()
     }
   } catch (err) {
@@ -33,11 +33,12 @@ const fetcher = async (id: string) => {
 
 const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
   const recordData = await fetcher(params.id)
-  const desc = `이날 성남시 날씨는 ${recordData?.weather.temp}°C 에요.
+  const desc = `이날 ${recordData?.address} 날씨는 ${recordData?.weather.temp}°C 에요.
 옷차림이 맘에 드시나요?`
   const currentWeather = {
     temp: recordData?.weather.temp,
     icon: recordData?.weather.icon,
+    address: recordData?.address,
   }
 
   return (
@@ -49,6 +50,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
             <InnerCon>
               <SubWeatherCon
                 desc={desc}
+                id={params.id}
                 currentWeather={
                   currentWeather || {
                     temp: '',
@@ -68,6 +70,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
                   type="button"
                   content="피드에 올리기"
                   status="upload"
+                  data={recordData}
                 />
               </BottomRoundedCon>
             </InnerCon>

@@ -29,7 +29,7 @@ const fetcher = (url: string): Promise<TcurrentWeather> => {
 }
 
 const useGetCurrentWeather = () => {
-  const { coordinates, loaded } = useGeolocation()
+  const { coordinates, loaded, error: locationError } = useGeolocation()
   const [currentTemp, setCurrentTemp] = useRecoilState(currentTempAtom)
   const { currentAddress } = useGetAddress(coordinates.lat, coordinates.lng)
 
@@ -38,6 +38,9 @@ const useGetCurrentWeather = () => {
       ? `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
       : null,
     fetcher,
+    {
+      revalidateOnFocus: false,
+    },
   )
 
   const currentWeather = {
@@ -56,6 +59,7 @@ const useGetCurrentWeather = () => {
     currentWeather,
     loaded,
     coordinates,
+    locationError,
     isLoading,
     isValidating,
     error,
