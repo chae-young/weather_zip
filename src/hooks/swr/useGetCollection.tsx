@@ -10,8 +10,9 @@ import {
 import { db } from '../../../firebase/firebasedb'
 import useSWRInfinite from 'swr/infinite'
 
-export type Tcollection = {
+type Tcollection = {
   id: string
+  nickname: string
   timestamp: any
   address: string
   each_image: string[]
@@ -48,6 +49,7 @@ const fetcher = async (fetchInfo: any): Promise<Tcollection[]> => {
   const querySnapshot = await getDocs(q)
   const data: Tcollection[] = querySnapshot.docs.map((doc) => ({
     id: doc.id,
+    nickname: doc.data().nickname,
     timestamp: doc.data().timestamp,
     address: doc.data().address,
     each_image: doc.data().each_image,
