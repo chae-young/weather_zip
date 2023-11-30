@@ -15,7 +15,7 @@ const WeatherLogList = ({ weatherLogs }: WeatherLogListProps) => {
         <li className="mb-14">
           <div className="flex items-center mb-2 justify-between">
             {/* <span className="rounded-full bg-gray-500 w-8 h-8 block"></span>{' '} */}
-            <span className="text-body3">김치만두</span>
+            <span className="text-body3">{weatherLog.nickname}</span>
             <span className="text-body4 text-gray-400">
               {toDateTime(weatherLog.timestamp.seconds)}
             </span>
