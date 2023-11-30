@@ -1,4 +1,11 @@
-import { collection, getDocs, limit, query, where } from 'firebase/firestore'
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore'
 import { db } from '../../../firebase/firebasedb'
 import useSWR, { useSWRConfig } from 'swr'
 import { useRecoilValue } from 'recoil'
@@ -9,35 +16,44 @@ export interface ItempClothing {
   fullbody_image: string
   userId: string
 }
-const fetcher = async (temp: number) => {
+const fetcher = async (temp: number, uid: string) => {
   const tempMax = temp + 5
   const tempMin = temp - 5
-  const q = query(
-    collection(db, 'collection'),
-    where('weather.temp', '>=', tempMin),
-    where('weather.temp', '<=', tempMax),
-    limit(10),
-  )
-  const querySnapshot = await getDocs(q)
-  const data: ItempClothing[] = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    fullbody_image: doc.data().fullbody_image,
-    userId: doc.data().userId,
-  }))
 
-  return data
+  try {
+    const q = query(
+      collection(db, 'collection'),
+      where('userId', '==', uid),
+      where('weather.temp', '>=', tempMin),
+      where('weather.temp', '<=', tempMax),
+      orderBy('weather.temp'),
+      orderBy('timestamp', 'desc'),
+      limit(10),
+    )
+    const querySnapshot = await getDocs(q)
+    const data: ItempClothing[] = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      fullbody_image: doc.data().fullbody_image,
+      userId: doc.data().userId,
+    }))
+
+    return data
+  } catch (err) {
+    console.log(err)
+    throw ''
+  }
 }
 
-export const useGetTempClothingList = (isLogged: boolean) => {
+export const useGetTempClothingList = (isLogged: boolean, uid: string) => {
   const { mutate } = useSWRConfig()
   const currentWeather = useRecoilValue(currentTempAtom)
   const {
     data: tempClothingList,
     isValidating,
     isLoading,
-  } = useSWR(
+  } = useSWR<ItempClothing[]>(
     `tempclothing-${currentWeather.temp}-user-${isLogged}`,
-    () => fetcher(Number(currentWeather.temp)),
+    () => fetcher(Number(currentWeather.temp), uid),
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
