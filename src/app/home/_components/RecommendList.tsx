@@ -20,10 +20,12 @@ const RecommendList = () => {
             <div className="rounded-2xl overflow-hidden mr-1" key={url}>
               <Image
                 src={url}
-                alt=""
+                alt={recommendList.title}
                 width={140}
                 height={180}
                 className="object-cover h-[180px] w-[140px]"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </div>
           ))}
