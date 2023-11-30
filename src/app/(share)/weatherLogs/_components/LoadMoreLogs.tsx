@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
 import { Tcollection, fetchWeatherLogs } from '../fetchWeatherLogs'
 import WeatherLogList from './WeatherLogList'
@@ -14,13 +14,18 @@ interface LoadMoreLogsProps {
 const LoadMoreLogs = ({ lastDoc, firstDataLength }: LoadMoreLogsProps) => {
   const [weatherLogs, setWeatherLogs] = useState<Tcollection[]>([])
   const [dataLength, setdataLength] = useState(firstDataLength)
+  const [loaedMoreLastDac, setLoaedMoreLastDac] = useState(lastDoc)
 
   const fetchMoreData = () => {
-    if (lastDoc) {
-      fetchWeatherLogs({ dataLimit: 10, lastDoc: lastDocTimestamp(lastDoc) })
+    if (loaedMoreLastDac) {
+      fetchWeatherLogs({
+        dataLimit: 10,
+        lastDoc: lastDocTimestamp(loaedMoreLastDac),
+      })
         .then((res: Tcollection[]) => {
           setWeatherLogs((prevData) => [...prevData, ...res])
-          setdataLength(weatherLogs.length)
+          setdataLength(res.length)
+          setLoaedMoreLastDac(!(res.length > 10) ? res[res.length - 1] : false)
         })
         .catch((error: unknown) => {
           console.error(error)

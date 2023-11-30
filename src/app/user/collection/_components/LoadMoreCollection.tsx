@@ -24,18 +24,20 @@ const LoadMoreCollection = ({
 }: LoadMoreCollectionProps) => {
   const [collections, setCollections] = useState<Tcollection[]>([])
   const [dataLength, setdataLength] = useState(firstDataLength)
+  const [loaedMoreLastDac, setLoaedMoreLastDac] = useState(lastDoc)
 
   const fetchMoreData = () => {
-    if (lastDoc) {
+    if (loaedMoreLastDac) {
       fetchCollection({
         tempMin,
         tempMax,
-        lastDoc: lastDocTimestamp(lastDoc),
+        lastDoc: lastDocTimestamp(loaedMoreLastDac),
         uid: uid,
       })
         .then((res: Tcollection[]) => {
           setCollections((prevData) => [...prevData, ...res])
-          setdataLength(collections.length)
+          setdataLength(res.length)
+          setLoaedMoreLastDac(!(res.length > 10) ? res[res.length - 1] : false)
         })
         .catch((error: unknown) => {
           console.error(error)

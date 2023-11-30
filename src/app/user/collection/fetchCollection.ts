@@ -31,7 +31,7 @@ export const fetchCollection = async ({
       where('weather.temp', '<=', tempMax),
       orderBy('weather.temp'),
       orderBy('timestamp', 'desc'),
-      ...(lastDoc ? [startAt(lastDoc)] : []),
+      ...(lastDoc ? [startAfter(lastDoc)] : []),
       limit(10),
     )
   } else {
@@ -39,7 +39,7 @@ export const fetchCollection = async ({
       collection(db, 'collection'),
       where('userId', '==', uid),
       orderBy('timestamp', 'desc'),
-      ...(lastDoc ? [startAt(lastDoc)] : []),
+      ...(lastDoc ? [startAfter(lastDoc)] : []),
       limit(10),
     )
   }
