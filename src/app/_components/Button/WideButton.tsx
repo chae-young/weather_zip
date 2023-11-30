@@ -34,7 +34,8 @@ const WideButton = ({
             ...newData,
           })
           router.push('/weatherLogs')
-          revalidatePath('/')
+          router.refresh()
+          //revalidatePath('/')
         } catch (err) {
           console.error(err)
         }
