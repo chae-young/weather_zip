@@ -15,15 +15,18 @@ export const fetchCollection = async ({
   tempMin,
   tempMax,
   lastDoc,
+  uid,
 }: {
   tempMin: number
   tempMax: number
   lastDoc: any
+  uid: string
 }) => {
   let q
   if (tempMin || tempMax) {
     q = query(
       collection(db, 'collection'),
+      where('userId', '==', uid),
       where('weather.temp', '>=', tempMin),
       where('weather.temp', '<=', tempMax),
       orderBy('weather.temp'),
@@ -34,6 +37,7 @@ export const fetchCollection = async ({
   } else {
     q = query(
       collection(db, 'collection'),
+      where('userId', '==', uid),
       orderBy('timestamp', 'desc'),
       ...(lastDoc ? [startAt(lastDoc)] : []),
       limit(10),
