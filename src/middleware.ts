@@ -8,20 +8,17 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   if (!session) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
-
-  const responseAPI = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
-    headers: {
-      Cookie: `session=${session?.value}`,
-    },
-  })
-
+  // const responseAPI = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
+  //   headers: {
+  //     Cookie: `session=${session?.value}`,
+  //   },
+  // })
   // if (responseAPI.status !== 200) {
-  //   return NextResponse.redirect(new URL('/login', request.url))
+  //   //return NextResponse.redirect(new URL('/login', request.url))
   // }
-
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: '/user/:path*',
+  matcher: ['/user/:path*'],
 }
