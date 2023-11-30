@@ -1,4 +1,5 @@
-import { revalidatePath } from 'next/cache'
+export const dynamic = 'force-dynamic'
+
 import InnerCon from '../../_components/common/InnerCon'
 import Nav from '../../_components/common/Nav'
 import TopTitle from '../../_components/common/TopTitle'
