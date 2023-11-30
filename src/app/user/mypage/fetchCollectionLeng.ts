@@ -1,9 +1,9 @@
 import { collection, endAt, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
 
-export const fetchCollectionLeng = async () => {
+export const fetchCollectionLeng = async (uid: string) => {
   try {
-    const q = query(collection(db, 'collection'))
+    const q = query(collection(db, 'collection'), where('userId', '==', uid))
     const querySnapshot = await getDocs(q)
     let allCollectionImageLeng = 0
     querySnapshot.forEach((doc) => {
@@ -12,6 +12,6 @@ export const fetchCollectionLeng = async () => {
     })
     return allCollectionImageLeng
   } catch (err) {
-    console.error(err)
+    console.log(err)
   }
 }

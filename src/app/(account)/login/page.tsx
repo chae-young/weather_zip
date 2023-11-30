@@ -92,6 +92,7 @@ const Login = () => {
         })
         if (response.status === 200) {
           router.back()
+          router.refresh()
         }
       })
     }

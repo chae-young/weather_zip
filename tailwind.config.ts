@@ -37,6 +37,22 @@ const config: Config = {
         body5: '0.6875rem',
         body6: '0.6rem',
       },
+      keyframes: {
+        slide: {
+          '10%': {
+            opacity: '1',
+          },
+          '20%': {
+            opacity: '1',
+          },
+          '30%': {
+            opacity: '0',
+          },
+        },
+      },
+      animation: {
+        slide: 'slide 4s ease infinite',
+      },
     },
   },
   plugins: [require('tailwindcss-animated')],

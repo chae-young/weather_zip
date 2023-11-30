@@ -12,7 +12,8 @@ interface TempClothingProps {
 }
 const TempClothing = ({ isLogged }: TempClothingProps) => {
   const { tempClothingList, isValidating } = useGetTempClothingList(isLogged)
-  if (isValidating) {
+
+  if (!tempClothingList?.length) {
     return <SkeletonRecommendList />
   }
 
@@ -25,10 +26,12 @@ const TempClothing = ({ isLogged }: TempClothingProps) => {
             <div className="rounded-2xl overflow-hidden mr-1" key={list.id}>
               <Image
                 src={list.fullbody_image}
-                alt=""
+                alt="내가 비슷한 온도에 입었어요."
                 width={140}
                 height={180}
                 className="object-cover h-[180px] w-[140px]"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </div>
           ))}

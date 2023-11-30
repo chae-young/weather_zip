@@ -7,8 +7,8 @@ import fetchUser from '../fetchUser'
 import { fetchCollectionLeng } from './fetchCollectionLeng'
 
 const Mypage = async () => {
-  const allCollectionImageLeng = await fetchCollectionLeng()
   const user = await fetchUser()
+  const allCollectionImageLeng = await fetchCollectionLeng(user.uid)
   return (
     <>
       <TopTitle title="마이페이지" />

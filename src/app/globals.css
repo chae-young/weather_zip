@@ -13,7 +13,51 @@ body {
   font-family: var(--custom-font);
   color: #2f2f2f;
 }
-
+/* @keyframes slide {
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+  }
+} */
+/* .ani-loading {
+  opacity: 0;
+  postion: absolute;
+} */
+.ani-loading:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.ani-loading:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.ani-loading:nth-child(3) {
+  animation-delay: 1.2s;
+}
+.ani-loading:nth-child(4) {
+  animation-delay: 1.6s;
+}
+.ani-loading:nth-child(5) {
+  animation-delay: 2s;
+}
+.ani-loading:nth-child(6) {
+  animation-delay: 2.4s;
+}
+.ani-loading:nth-child(7) {
+  animation-delay: 2.8s;
+}
+.ani-loading:nth-child(8) {
+  animation-delay: 3.2s;
+}
+.ani-loading:nth-child(9) {
+  animation-delay: 3.6s;
+}
 .min-h-list {
   min-height: calc(100vh - 150px);
 }
