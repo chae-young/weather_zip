@@ -31,7 +31,7 @@ const CategoryList = () => {
   const signOutUser = async () => {
     await signOut(auth)
 
-    const response = await fetch('http://localhost:3000/api/logout', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/logout`, {
       method: 'POST',
     })
 
