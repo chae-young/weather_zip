@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import InnerCon from '../../_components/common/InnerCon'
 import Nav from '../../_components/common/Nav'
 import TopTitle from '../../_components/common/TopTitle'
@@ -10,7 +11,6 @@ const WeatherLogs = async () => {
   const dataLimit = 10
   const weatherLogs = await fetchWeatherLogs({ dataLimit: 10, lastDoc: null })
   const originalLastDoc = weatherLogs[weatherLogs.length - 1]
-
   return (
     <>
       <TopTitle title="날씨로그" />

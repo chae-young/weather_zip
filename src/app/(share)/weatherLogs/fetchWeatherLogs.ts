@@ -8,6 +8,7 @@ import {
   startAt,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
+import { revalidatePath } from 'next/cache'
 
 export type Tcollection = {
   id: string
