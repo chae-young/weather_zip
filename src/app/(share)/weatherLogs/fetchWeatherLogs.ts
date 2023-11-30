@@ -8,7 +8,6 @@ import {
   startAt,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
-import { revalidatePath } from 'next/cache'
 
 export type Tcollection = {
   id: string
@@ -24,7 +23,7 @@ export type Tcollection = {
     desc: string
   }
 }
-
+export const revalidate = 1
 export const fetchWeatherLogs = async ({
   dataLimit,
   lastDoc,
@@ -36,7 +35,7 @@ export const fetchWeatherLogs = async ({
     collection(db, 'weatherlog'),
     orderBy('timestamp', 'desc'),
     //startAfter(timestamp),
-    ...(lastDoc ? [startAt(lastDoc)] : []),
+    ...(lastDoc ? [startAfter(lastDoc)] : []),
     limit(10),
   )
 
@@ -55,6 +54,5 @@ export const fetchWeatherLogs = async ({
       desc: doc.data().weather.desc,
     },
   }))
-
   return data
 }

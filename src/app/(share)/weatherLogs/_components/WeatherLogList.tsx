@@ -12,7 +12,7 @@ const WeatherLogList = ({ weatherLogs }: WeatherLogListProps) => {
   return (
     <>
       {weatherLogs.map((weatherLog) => (
-        <li className="mb-14">
+        <li className="mb-14" key={weatherLog.id}>
           <div className="flex items-center mb-2 justify-between">
             {/* <span className="rounded-full bg-gray-500 w-8 h-8 block"></span>{' '} */}
             <span className="text-body3">{weatherLog.nickname}</span>

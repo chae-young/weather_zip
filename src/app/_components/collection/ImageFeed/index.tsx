@@ -37,6 +37,7 @@ const ImageFeed = ({ fullbody_image, desc, each_image }: ImageFeedProps) => {
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
                   className="object-cover"
+                  sizes="(min-width: 640px) 50vw, 100vw"
                 />
               </div>
             ))}
