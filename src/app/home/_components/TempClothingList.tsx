@@ -14,12 +14,9 @@ interface TempClothingProps {
   uid: string
 }
 const TempClothing = ({ isLogged, uid }: TempClothingProps) => {
-  const { tempClothingList, isValidating, isLoading } = useGetTempClothingList(
-    isLogged,
-    uid,
-  )
-
-  if (isValidating || isLoading || (tempClothingList?.length as number) <= 0) {
+  const { tempClothingList, isValidating, isLoading, loaded } =
+    useGetTempClothingList(isLogged, uid)
+  if (isValidating || isLoading || !loaded) {
     return <SkeletonRecommendList />
   }
 
