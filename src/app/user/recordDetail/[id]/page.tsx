@@ -68,7 +68,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
                 />
                 <WideButton
                   type="button"
-                  content="피드에 올리기"
+                  content="날씨로그에 올리기"
                   status="upload"
                   data={recordData}
                 />
