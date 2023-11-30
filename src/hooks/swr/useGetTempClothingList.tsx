@@ -10,6 +10,7 @@ import { db } from '../../../firebase/firebasedb'
 import useSWR, { useSWRConfig } from 'swr'
 import { useRecoilValue } from 'recoil'
 import currentTempAtom from '@/recoil/atom/currentTempAtom'
+import useGeolocation from '../useGeolocation'
 
 export interface ItempClothing {
   id: string
@@ -46,6 +47,7 @@ const fetcher = async (temp: number, uid: string) => {
 
 export const useGetTempClothingList = (isLogged: boolean, uid: string) => {
   const { mutate } = useSWRConfig()
+  const { loaded } = useGeolocation()
   const currentWeather = useRecoilValue(currentTempAtom)
   const {
     data: tempClothingList,
@@ -66,5 +68,6 @@ export const useGetTempClothingList = (isLogged: boolean, uid: string) => {
     tempClothingList,
     isValidating,
     isLoading,
+    loaded,
   }
 }
