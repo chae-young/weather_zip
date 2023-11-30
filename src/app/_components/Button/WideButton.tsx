@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
+import { revalidatePath } from 'next/cache'
 
 interface WideButtonProps {
   type: 'submit' | 'button' | 'reset'
@@ -33,7 +34,7 @@ const WideButton = ({
             ...newData,
           })
           router.push('/weatherLogs')
-          router.refresh()
+          revalidatePath('/')
         } catch (err) {
           console.error(err)
         }
