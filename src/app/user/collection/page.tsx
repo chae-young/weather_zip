@@ -39,6 +39,7 @@ const Collection = async ({
             <CollectionList collections={collections} />
             {collections.length >= dataLimit && (
               <LoadMoreCollection
+                uid={user.uid}
                 firstDataLength={collections.length}
                 tempMin={tempMin}
                 tempMax={tempMax}

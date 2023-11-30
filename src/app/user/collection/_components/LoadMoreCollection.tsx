@@ -12,6 +12,7 @@ interface LoadMoreCollectionProps {
   firstDataLength: number
   tempMax: number
   tempMin: number
+  uid: string
 }
 
 const LoadMoreCollection = ({
@@ -19,13 +20,19 @@ const LoadMoreCollection = ({
   firstDataLength,
   tempMin,
   tempMax,
+  uid,
 }: LoadMoreCollectionProps) => {
   const [collections, setCollections] = useState<Tcollection[]>([])
   const [dataLength, setdataLength] = useState(firstDataLength)
 
   const fetchMoreData = () => {
     if (lastDoc) {
-      fetchCollection({ tempMin, tempMax, lastDoc: lastDocTimestamp(lastDoc) })
+      fetchCollection({
+        tempMin,
+        tempMax,
+        lastDoc: lastDocTimestamp(lastDoc),
+        uid: uid,
+      })
         .then((res: Tcollection[]) => {
           setCollections((prevData) => [...prevData, ...res])
           setdataLength(collections.length)
