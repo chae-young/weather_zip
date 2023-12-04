@@ -5,10 +5,10 @@ import CategoryList from './_components/CategoryList'
 
 import fetchUser from '../fetchUser'
 import { fetchCollectionLeng } from './fetchCollectionLeng'
+import CollectionLengInfo from './_components/CollectionLengInfo'
 
 const Mypage = async () => {
   const user = await fetchUser()
-  const allCollectionImageLeng = await fetchCollectionLeng(user.uid)
   return (
     <>
       <TopTitle title="마이페이지" />
@@ -18,10 +18,7 @@ const Mypage = async () => {
             준비중...
           </div>
           <h2 className="text-2xl mt-4">{user?.nickname}</h2>
-          <p className="text-gray-500 mt-3">
-            <b className="text-bk">{allCollectionImageLeng}개</b>의 옷을 가지고
-            있어요.
-          </p>
+          <CollectionLengInfo uid={user.uid} />
         </section>
         <section>
           <CategoryList />
