@@ -6,9 +6,7 @@ interface InnerConProps {
 
 const InnerCon = ({ children, bg, margin }: InnerConProps) => {
   return (
-    <div
-      className={`pt-16 pb-10 ${bg ? bg : ''} ${margin ? `p-5` : ''} h-full`}
-    >
+    <div className={`pt-16 ${bg ? bg : ''} ${margin ? `p-5` : ''} h-full`}>
       {children}
     </div>
   )

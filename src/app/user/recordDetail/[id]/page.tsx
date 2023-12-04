@@ -74,7 +74,6 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
                 />
               </BottomRoundedCon>
             </InnerCon>
-            <Nav />
           </div>
         </>
       ) : (
