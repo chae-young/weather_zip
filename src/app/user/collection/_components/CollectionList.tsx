@@ -1,32 +1,54 @@
-'use client'
-
-import Link from 'next/link'
-import Image from 'next/image'
-import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
+import { fetchCollection } from '../fetchCollection'
+import LoadMoreCollection from './LoadMoreCollection'
+import { newLastDoc } from '@/util/timestampChange'
+import CollectionItem from './CollectionItem'
 
 interface CollectionListProps {
-  collections: Tcollection[]
+  // collections: Tcollection[]
+  tempMax: number
+  tempMin: number
+  uid: string
+  dataLimit: number
 }
 
-const CollectionList = ({ collections }: CollectionListProps) => {
-  return collections.map((collection) => (
-    <li className="w-[49.82%] h-44" key={collection.id}>
-      <Link
-        href={`/user/recordDetail/${collection.id}`}
-        className="block relative h-full"
-      >
-        {collection.fullbody_image && (
-          <Image
-            src={collection.fullbody_image}
-            fill
-            className="object-cover"
-            sizes="(min-width: 640px) 50vw, 100vw"
-            alt={collection.weather.desc}
-          />
-        )}
-      </Link>
-    </li>
-  ))
+const CollectionList = async ({
+  tempMax,
+  tempMin,
+  uid,
+  dataLimit,
+}: CollectionListProps) => {
+  const collections = await fetchCollection({
+    tempMin: tempMin,
+    tempMax: tempMax,
+    lastDoc: null,
+    uid: uid,
+  })
+
+  return (
+    <>
+      {collections.length === 0 ? (
+        <div className="min-h-list flex justify-center mt-10 text-gray-400">
+          등록한 컬렉션이 없어요.
+        </div>
+      ) : (
+        <ul className="flex flex-wrap gap-[1px] min-h-list content-start pb-5">
+          <CollectionItem collections={collections} />
+          {collections.length >= dataLimit && (
+            <LoadMoreCollection
+              uid={uid}
+              firstDataLength={collections.length}
+              tempMin={tempMin}
+              tempMax={tempMax}
+              lastDoc={
+                collections.length === dataLimit &&
+                newLastDoc(collections[collections.length - 1])
+              }
+            />
+          )}
+        </ul>
+      )}
+    </>
+  )
 }
 
 export default CollectionList

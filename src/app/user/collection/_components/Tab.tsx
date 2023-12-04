@@ -44,10 +44,10 @@ const Tab = () => {
   const [isActive, setIsActive] = useState<null | number>(null)
 
   const handleOnClickFiltered = (query: string, idx: number) => {
-    router.push(`collection?${query}`)
     setIsActive(idx)
+    router.push(`collection?${query}`)
+    //router.refresh()
   }
-
   return (
     <div className="flex overflow-x-auto space-x-8 px-4 py-4">
       <ul className="flex shrink-0 gap-2">
