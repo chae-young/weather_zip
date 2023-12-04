@@ -17,9 +17,9 @@ export const fetchCollection = async ({
   lastDoc,
   uid,
 }: {
-  tempMin: number
-  tempMax: number
-  lastDoc: any
+  tempMin?: number
+  tempMax?: number
+  lastDoc?: any
   uid: string
 }) => {
   let q
@@ -59,6 +59,7 @@ export const fetchCollection = async ({
       desc: doc.data().weather.desc,
     },
   }))
+  console.log(data)
 
   return data
 }

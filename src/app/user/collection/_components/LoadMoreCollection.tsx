@@ -6,6 +6,7 @@ import { fetchCollection } from '../fetchCollection'
 import CollectionList from './CollectionList'
 import { lastDocTimestamp } from '@/util/timestampChange'
 import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
+import CollectionItem from './CollectionItem'
 
 interface LoadMoreCollectionProps {
   lastDoc?: Tcollection | false
@@ -47,7 +48,7 @@ const LoadMoreCollection = ({
 
   return (
     <>
-      <CollectionList collections={collections} />
+      <CollectionItem collections={collections} />
       {!(dataLength < 10) && <InfiniteScroll fetchMoreData={fetchMoreData} />}
     </>
   )
