@@ -8,17 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 버전 정보 추출
-        id: extract_version_name
+      - name: Extract branch name
+        id: extract_branch_name
         run: |
-          version="${{ github.event.head_commit.message }}"
-          echo "##[set-output name=version;]$version"
+          # Extract branch name
+          branchName=$(echo "${{ github.ref }}" | sed -n 's|refs/heads/release/\(.*\)|\1|p')
+          echo "##[set-output name=branch_name;]$branchName"
+      - name: Extract commit messages
+        id: extract_commit_messages
+        run: |
+          # Extract commit messages since the last tag
+          git fetch --tags
+          lastTag=$(git describe --tags --abbrev=0)
+          commitMessages=$(git log $lastTag..HEAD --pretty=format:"- %s")
+          echo "##[set-output name=commit_messages;]$commitMessages"
       - name: Release 생성
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.extract_version_name.outputs.version }}
-          release_name: ${{ steps.extract_version_name.outputs.version }}
-          body: ${{ steps.extract_version_name.outputs.version }}
+          tag_name: ${{ steps.extract_branch_name.outputs.branch_name }}
+          release_name: ${{ steps.extract_branch_name.outputs.branch_name }}
+          body: ${{ steps.extract_commit_messages.outputs.commit_messages }}
