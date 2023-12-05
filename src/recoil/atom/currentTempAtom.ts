@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-
+//
 type Ttemp = {
   location: string
   temp: number | undefined
