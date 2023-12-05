@@ -11,8 +11,7 @@ jobs:
       - name: 버전 정보 추출
         id: extract_version_name
         run: |
-          # "release/"를 제외한 부분을 버전 정보로 사용
-          version=$(echo "${{ github.event.head_commit.message }}" | sed -n 's/release\/\([^ ]*\)/\1/p' | tr -d '()')
+          version="${{ github.event.head_commit.message }}"
           echo "##[set-output name=version;]$version"
       - name: Release 생성
         id: create_release
