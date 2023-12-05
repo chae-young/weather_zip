@@ -1,7 +1,6 @@
 'use client'
 
 import currentTempAtom from '@/recoil/atom/currentTempAtom'
-import React from 'react'
 import { useRecoilValue } from 'recoil'
 
 const Temp = () => {
