@@ -1,5 +1,5 @@
 import useIntersection from '@/hooks/useIntersection'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface InfiniteScrollProps {
   fetchMoreData: () => void
