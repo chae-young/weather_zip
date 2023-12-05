@@ -17,7 +17,6 @@ import { addDoc, collection } from 'firebase/firestore'
 
 const Join = () => {
   const router = useRouter()
-
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [nickname, setNickName, handleChangeNickname] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
