@@ -18,8 +18,7 @@ jobs:
         id: extract_commit_messages
         run: |
           # Extract commit messages since the last tag
-          git fetch --tags
-          lastTag=$(git describe --tags --abbrev=0)
+          lastTag=$(git describe --tags --abbrev=0 2>/dev/null || echo HEAD)
           commitMessages=$(git log $lastTag..HEAD --pretty=format:"- %s")
           echo "##[set-output name=commit_messages;]$commitMessages"
       - name: Release 생성
