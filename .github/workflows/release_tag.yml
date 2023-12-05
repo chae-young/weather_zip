@@ -12,7 +12,10 @@ jobs:
         id: extract_version_name
         run: |
           version=$(echo "${{ github.event.head_commit.message }}" | sed -n 's/release\/\([^ ]*\)/\1/p' | tr -d '()')
+          # tag_name에서 '/'를 '-'로 바꾸고 앞에 'v'를 붙임
+          tag_name="v${version//\//-}"
           echo "##[set-output name=version;]$version"
+          echo "##[set-output name=tag_name;]$tag_name"
       - name: Release 생성
         id: create_release
         uses: actions/create-release@v1
