@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
 import { fetchCollection } from '../fetchCollection'
-import CollectionList from './CollectionList'
 import { lastDocTimestamp } from '@/util/timestampChange'
 import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 import CollectionItem from './CollectionItem'

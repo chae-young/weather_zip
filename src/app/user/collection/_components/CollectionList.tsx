@@ -1,7 +1,7 @@
 import { fetchCollection } from '../fetchCollection'
+import CollectionItem from './CollectionItem'
 import LoadMoreCollection from './LoadMoreCollection'
 import { newLastDoc } from '@/util/timestampChange'
-import CollectionItem from './CollectionItem'
 
 interface CollectionListProps {
   // collections: Tcollection[]
