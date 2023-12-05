@@ -8,8 +8,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   getAuth,
-  signInWithRedirect,
-  getRedirectResult,
 } from 'firebase/auth'
 import { auth, db, emailProvider } from '../../../../firebase/firebasedb'
 import { FirebaseError } from 'firebase/app'
@@ -23,7 +21,6 @@ import { addDoc, collection } from 'firebase/firestore'
 
 const Login = () => {
   const router = useRouter()
-  const params = useSearchParams()
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
   const [confirmLoginError, setConfirmLoginError] = useState('')
