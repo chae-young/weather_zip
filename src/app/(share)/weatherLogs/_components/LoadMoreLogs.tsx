@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import InfiniteScroll from '@/app/_components/common/InfiniteScroll'
 import { Tcollection, fetchWeatherLogs } from '../fetchWeatherLogs'
 import WeatherLogList from './WeatherLogList'
