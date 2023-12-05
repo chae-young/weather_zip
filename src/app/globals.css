@@ -13,24 +13,7 @@ body {
   font-family: var(--custom-font);
   color: #2f2f2f;
 }
-/* @keyframes slide {
-  10% {
-    opacity: 1;
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  40% {
-    transform: scale(1.1);
-  }
-} */
-/* .ani-loading {
-  opacity: 0;
-  postion: absolute;
-} */
+
 .ani-loading:nth-child(1) {
   animation-delay: 0.4s;
 }
