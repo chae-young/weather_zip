@@ -1,21 +1,17 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   getAuth,
-  signInWithRedirect,
-  getRedirectResult,
 } from 'firebase/auth'
-import { auth, db, emailProvider } from '../../../../firebase/firebasedb'
+import { auth, db } from '../../../../firebase/firebasedb'
 import { FirebaseError } from 'firebase/app'
 import Image from 'next/image'
-import { useRecoilState } from 'recoil'
-import userAtom from '@/recoil/atom/userAtom'
 import useInputChange from '@/hooks/useInputChange'
 import InputField from '../../_components/InputField'
 import WideButton from '../../_components/Button/WideButton'
@@ -23,11 +19,9 @@ import { addDoc, collection } from 'firebase/firestore'
 
 const Login = () => {
   const router = useRouter()
-  const params = useSearchParams()
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
   const [confirmLoginError, setConfirmLoginError] = useState('')
-  const [userInfo, setUserInfo] = useRecoilState(userAtom)
 
   // const handleOnSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault()
@@ -84,12 +78,6 @@ const Login = () => {
           Authorization: `Bearer ${await user?.getIdToken()}`,
         },
       }).then((response) => {
-        const userRef = collection(db, 'users')
-        addDoc(userRef, {
-          uid: user.uid,
-          email: user.email,
-          nickname: user.displayName,
-        })
         if (response.status === 200) {
           router.back()
           router.refresh()
@@ -130,9 +118,9 @@ const Login = () => {
       })
 
       if (response.status === 200) {
-        router.back()
-        router.refresh()
-        //router.push('/home')
+        router.push('/home')
+        //router.
+        //router.refresh()
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {

@@ -2,13 +2,12 @@ import TopTitle from '@/app/_components/common/TopTitle'
 import InnerCon from '@/app/_components/common/InnerCon'
 import Nav from '@/app/_components/common/Nav'
 import CategoryList from './_components/CategoryList'
-
 import fetchUser from '../fetchUser'
-import { fetchCollectionLeng } from './fetchCollectionLeng'
 import CollectionLengInfo from './_components/CollectionLengInfo'
 
 const Mypage = async () => {
   const user = await fetchUser()
+
   return (
     <>
       <TopTitle title="마이페이지" />
