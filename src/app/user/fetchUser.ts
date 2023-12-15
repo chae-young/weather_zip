@@ -11,7 +11,7 @@ export type Tuser = {
   email: string
 }
 
-const fetchUser = async () => {
+const fetchUser = async (): Promise<Tuser> => {
   const cookieStore = cookies()
   const idToken = cookieStore.get('session')?.value
 
@@ -26,9 +26,12 @@ const fetchUser = async () => {
     if (response.status === 200) {
       const result: Tuser = await response.json()
       return result
+    } else {
+      throw new Error('유저 정보를 가져올 수 없습니다.')
     }
   } catch (error) {
     console.error
+    throw error
   }
 }
 

@@ -1,25 +1,37 @@
 import Image from 'next/image'
 
+import { Ttag } from '@/recoil/atom/imageTagsAtom'
+import ImageOnTherTagList from '../../\bImageOnTheTagList'
+
 interface ImageFeedProps {
+  tags: Ttag[] | []
   fullbody_image: string
   desc: string
   each_image: string[]
 }
 
-const ImageFeed = ({ fullbody_image, desc, each_image }: ImageFeedProps) => {
+const ImageFeed = ({
+  tags,
+  fullbody_image,
+  desc,
+  each_image,
+}: ImageFeedProps) => {
   return (
     <>
       <div className="overflow-hidden w-full min-h-[360px] rounded-2xl relative">
         {fullbody_image && (
-          <Image
-            src={fullbody_image}
-            alt={desc}
-            fill
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-            className="rounded-2xl object-cover"
-            sizes="(min-width: 640px) 50vw, 100vw"
-          />
+          <>
+            <Image
+              src={fullbody_image}
+              alt={desc}
+              fill
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+              className="rounded-2xl object-cover"
+              sizes="(min-width: 640px) 50vw, 100vw"
+            />
+            <ImageOnTherTagList tags={tags} />
+          </>
         )}
       </div>
       <div className="flex overflow-x-auto space-x-8 mb-6 mt-5">

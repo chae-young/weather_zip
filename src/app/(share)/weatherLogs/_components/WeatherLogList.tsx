@@ -22,6 +22,7 @@ const WeatherLogList = ({ weatherLogs }: WeatherLogListProps) => {
           </div>
           <div>
             <ImageFeed
+              tags={weatherLog.tags}
               fullbody_image={weatherLog.fullbody_image}
               each_image={weatherLog.each_image}
               desc={weatherLog.weather.desc}

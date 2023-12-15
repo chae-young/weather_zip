@@ -50,6 +50,7 @@ export const fetchCollection = async ({
     timestamp: doc.data().timestamp,
     nickname: doc.data().nickname,
     address: doc.data().address,
+    tags: doc.data().tags,
     each_image: doc.data().each_image,
     fullbody_image: doc.data().fullbody_image,
     userId: doc.data().userId,
@@ -59,7 +60,6 @@ export const fetchCollection = async ({
       desc: doc.data().weather.desc,
     },
   }))
-  console.log(data)
 
   return data
 }
