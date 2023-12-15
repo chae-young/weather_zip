@@ -1,3 +1,4 @@
+import { auth } from 'firebase-admin'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -8,14 +9,17 @@ export async function middleware(request: NextRequest, response: NextResponse) {
   if (!session) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
-  // const responseAPI = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
-  //   headers: {
-  //     Cookie: `session=${session?.value}`,
-  //   },
-  // })
-  // if (responseAPI.status !== 200) {
-  //   //return NextResponse.redirect(new URL('/login', request.url))
-  // }
+  //세션 유효 검증
+  const responseAPI = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth`, {
+    headers: {
+      Cookie: `session=${session.value}`,
+    },
+  })
+  const result = await responseAPI.json()
+
+  if (result.status !== 200) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
   return NextResponse.next()
 }
 

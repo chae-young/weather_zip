@@ -9,11 +9,9 @@ import {
   GoogleAuthProvider,
   getAuth,
 } from 'firebase/auth'
-import { auth, db, emailProvider } from '../../../../firebase/firebasedb'
+import { auth, db } from '../../../../firebase/firebasedb'
 import { FirebaseError } from 'firebase/app'
 import Image from 'next/image'
-import { useRecoilState } from 'recoil'
-import userAtom from '@/recoil/atom/userAtom'
 import useInputChange from '@/hooks/useInputChange'
 import InputField from '../../_components/InputField'
 import WideButton from '../../_components/Button/WideButton'
@@ -24,7 +22,6 @@ const Login = () => {
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
   const [confirmLoginError, setConfirmLoginError] = useState('')
-  const [userInfo, setUserInfo] = useRecoilState(userAtom)
 
   // const handleOnSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault()
@@ -81,12 +78,6 @@ const Login = () => {
           Authorization: `Bearer ${await user?.getIdToken()}`,
         },
       }).then((response) => {
-        const userRef = collection(db, 'users')
-        addDoc(userRef, {
-          uid: user.uid,
-          email: user.email,
-          nickname: user.displayName,
-        })
         if (response.status === 200) {
           router.back()
           router.refresh()
@@ -127,9 +118,9 @@ const Login = () => {
       })
 
       if (response.status === 200) {
-        router.back()
-        router.refresh()
-        //router.push('/home')
+        router.push('/home')
+        //router.
+        //router.refresh()
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
