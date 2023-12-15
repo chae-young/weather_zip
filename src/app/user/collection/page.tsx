@@ -21,20 +21,13 @@ const Collection = async ({
       <TopTitle title="컬렉션" />
       <InnerCon>
         <Tab />
-        <Suspense
-          fallback={
-            <div className="text-center h-[80vh]">
-              <Spin />
-            </div>
-          }
-        >
-          <CollectionList
-            tempMax={tempMax}
-            tempMin={tempMin}
-            uid={user.uid}
-            dataLimit={dataLimit}
-          />
-        </Suspense>
+
+        <CollectionList
+          tempMax={tempMax}
+          tempMin={tempMin}
+          uid={user!.uid}
+          dataLimit={dataLimit}
+        />
       </InnerCon>
       <Nav />
     </div>

@@ -1,11 +1,11 @@
 import { fetchCollectionLeng } from '../fetchCollectionLeng'
 
 interface CollectionLenInfoProps {
-  uid: string
+  uid: string | null
 }
 
 const CollectionLenInfo = async ({ uid }: CollectionLenInfoProps) => {
-  const allCollectionImageLeng = await fetchCollectionLeng(uid)
+  const allCollectionImageLeng = await fetchCollectionLeng(uid as string)
 
   return (
     <p className="text-gray-500 mt-3">
