@@ -118,7 +118,7 @@ const Login = () => {
       })
 
       if (response.status === 200) {
-        router.push('/home')
+        router.replace('/home')
         //router.
         //router.refresh()
       }
