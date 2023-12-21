@@ -1,3 +1,4 @@
+import fetchUser from '../../fetchUser'
 import { fetchCollection } from '../fetchCollection'
 import CollectionItem from './CollectionItem'
 import LoadMoreCollection from './LoadMoreCollection'
@@ -7,21 +8,20 @@ interface CollectionListProps {
   // collections: Tcollection[]
   tempMax: number
   tempMin: number
-  uid: string
   dataLimit: number
 }
 
 const CollectionList = async ({
   tempMax,
   tempMin,
-  uid,
   dataLimit,
 }: CollectionListProps) => {
+  const user = await fetchUser()
   const collections = await fetchCollection({
     tempMin: tempMin,
     tempMax: tempMax,
     lastDoc: null,
-    uid: uid,
+    uid: user.uid,
   })
 
   return (
@@ -35,7 +35,7 @@ const CollectionList = async ({
           <CollectionItem collections={collections} />
           {collections.length >= dataLimit && (
             <LoadMoreCollection
-              uid={uid}
+              uid={user.uid}
               firstDataLength={collections.length}
               tempMin={tempMin}
               tempMax={tempMax}

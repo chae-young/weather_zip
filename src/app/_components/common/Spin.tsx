@@ -1,5 +1,5 @@
 const Spin = () => (
-  <div role="status">
+  <div role="status" className="text-center">
     <svg
       aria-hidden="true"
       className="inline w-8 h-8 text-gray-200 animate-spin fill-gray-600"

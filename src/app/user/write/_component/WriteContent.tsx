@@ -20,7 +20,7 @@ import TopTitle from '@/app/_components/common/TopTitle'
 import InnerCon from '@/app/_components/common/InnerCon'
 import imagTagsAtom from '@/recoil/atom/imageTagsAtom'
 import ModalImageOnTags from './modal/ModalImageOnTags'
-import ImageOnTherTagList from '@/app/_components/\bImageOnTheTagList'
+import ImageOnTherTagList from '@/app/_components/ImageOnTheTagList'
 
 interface WriteContentProps {
   user: Tuser | undefined

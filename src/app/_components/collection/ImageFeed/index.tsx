@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { Ttag } from '@/recoil/atom/imageTagsAtom'
-import ImageOnTherTagList from '../../\bImageOnTheTagList'
+import ImageOnTherTagList from '../../ImageOnTheTagList'
 
 interface ImageFeedProps {
   tags: Ttag[] | []

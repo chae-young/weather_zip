@@ -15,7 +15,7 @@ import useResponsiveImageSize from '@/hooks/useResponsiveImageSize'
 import { useRecoilState } from 'recoil'
 import imagTagsAtom from '@/recoil/atom/imageTagsAtom'
 import useImageMouseEvent from '@/hooks/useImageMouseEvent'
-import ImageOnTherTagList from '@/app/_components/\bImageOnTheTagList'
+import ImageOnTherTagList from '@/app/_components/ImageOnTheTagList'
 
 interface ModalImageOnTagsProps {
   imageURL: string
