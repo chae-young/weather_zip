@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { db } from '../../../firebase/firebasedb'
 import { redirect } from 'next/navigation'
 import { FirebaseError } from 'firebase/app'
@@ -39,9 +39,11 @@ const fetchUser = async (): Promise<Tuser> => {
   } catch (error) {
     const firebaseError = error as FirebaseError
     if (firebaseError) {
-      redirect('/login')
-      //console.log(firebaseError.message)
-      //throw new Error('유효하지 않은 토큰 입니다.')
+      const headersList = headers()
+      const pathname = headersList.get('x-invoke-path') || ''
+
+      if (pathname !== '/') redirect('/login')
+      return { isLogged: false, uid: '', nickname: '', email: '' }
     } else {
       // FirebaseError가 아닌 다른 에러 처리
       console.error('Non-Firebase Error:', error)

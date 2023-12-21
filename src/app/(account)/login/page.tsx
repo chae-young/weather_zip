@@ -119,8 +119,7 @@ const Login = () => {
 
       if (response.status === 200) {
         router.replace('/')
-        //router.
-        //router.refresh()
+        router.refresh()
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {

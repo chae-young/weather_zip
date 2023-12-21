@@ -9,7 +9,6 @@ interface MypageLayoutProps {
 }
 
 const MypageLayout = ({ children, userInfo }: MypageLayoutProps) => {
-  console.log(userInfo)
   return (
     <>
       <TopTitle title="마이페이지" />
