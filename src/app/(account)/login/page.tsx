@@ -79,7 +79,7 @@ const Login = () => {
         },
       }).then((response) => {
         if (response.status === 200) {
-          router.back()
+          router.replace('/')
           router.refresh()
         }
       })
@@ -118,7 +118,7 @@ const Login = () => {
       })
 
       if (response.status === 200) {
-        router.replace('/home')
+        router.replace('/')
         //router.
         //router.refresh()
       }
