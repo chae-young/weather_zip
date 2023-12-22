@@ -2,8 +2,10 @@ import { auth } from 'firebase-admin'
 import { adminInitApp } from '../../../../firebase/firebase-admin-config'
 import { cookies, headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import { FirebaseError } from 'firebase-admin'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
+import { redirect } from 'next/navigation'
 
 adminInitApp()
 
@@ -17,7 +19,6 @@ export async function POST(request: NextRequest, response: NextResponse) {
     if (decodedToken) {
       //세션 쿠키 생성
       const expiresIn = 60 * 60 * 24 * 5 * 1000
-      // const expiresIn = 300000
       const sessionCookie = await auth().createSessionCookie(idToken, {
         expiresIn,
       })
@@ -55,16 +56,14 @@ export async function GET(request: NextRequest) {
       nickname: doc.data().nickname,
     }))[0]
 
-    return NextResponse.json(
-      {
-        isLogged: true,
-        uid: userInfo.uid,
-        nickname: userInfo.nickname,
-        email: userInfo.email,
-      },
-      { status: 200 },
-    )
+    return NextResponse.json({
+      isLogged: true,
+      uid: userInfo.uid,
+      nickname: userInfo.nickname,
+      email: userInfo.email,
+    })
   } catch (error) {
-    return NextResponse.json({ status: 500 })
+    const firebaseError = error as FirebaseError
+    return NextResponse.json({ status: 500, message: firebaseError.message })
   }
 }
