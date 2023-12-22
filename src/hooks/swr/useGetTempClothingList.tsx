@@ -40,7 +40,7 @@ const fetcher = async (temp: number, uid: string) => {
 
     return data
   } catch (err) {
-    console.log(err)
+    console.error(err)
     throw ''
   }
 }

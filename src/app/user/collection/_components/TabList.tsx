@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface TabListProps {
   content: string
   isActive: number | null
