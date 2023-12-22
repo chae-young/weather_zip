@@ -1,38 +1,19 @@
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../../../../firebase/firebasedb'
-
 import TopTitle from '@/app/_components/common/TopTitle'
 import SubWeatherCon from '@/app/_components/SubWeatherCon'
 import BottomRoundedCon from '@/app/_components/BottomRoundedCon'
-import Nav from '@/app/_components/common/Nav'
 import ImageFeed from '@/app/_components/collection/ImageFeed'
 import WideButton from '@/app/_components/Button/WideButton'
 import NotFound from '@/app/not-found'
 import InnerCon from '@/app/_components/common/InnerCon'
+import { fetchMyRecord } from '../fetchMyRecord'
 
 interface recordDetailProps {
   params: { id: string }
   searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-const fetcher = async (id: string) => {
-  try {
-    const docRef = doc(db, 'collection', `${id}`)
-    const docSnap = await getDoc(docRef)
-    if (docSnap.exists()) {
-      //console.log('Document data:', docSnap.data())
-      return docSnap.data()
-    }
-  } catch (err) {
-    console.error(err)
-    throw err
-  }
-
-  return null
-}
-
 const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
-  const recordData = await fetcher(params.id)
+  const recordData = await fetchMyRecord(params.id)
   const desc = `이날 ${recordData?.address} 날씨는 ${recordData?.weather.temp}°C 에요.
 옷차림이 맘에 드시나요?`
   const currentWeather = {
@@ -62,6 +43,7 @@ const recordDetail = async ({ params, searchParams }: recordDetailProps) => {
               />
               <BottomRoundedCon>
                 <ImageFeed
+                  tags={recordData.tags}
                   fullbody_image={recordData?.fullbody_image}
                   desc={recordData?.weather.desc}
                   each_image={recordData?.each_image}

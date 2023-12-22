@@ -4,6 +4,7 @@
 
 :root {
   --container: 560px;
+  --con: 560;
 }
 
 @media (prefers-color-scheme: dark) {

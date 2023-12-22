@@ -7,6 +7,7 @@ import {
   startAfter,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
+import { Ttag } from '@/recoil/atom/imageTagsAtom'
 
 export type Tcollection = {
   id: string
@@ -16,6 +17,7 @@ export type Tcollection = {
   each_image: string[]
   fullbody_image: string
   userId: string
+  tags: [] | Ttag[]
   weather: {
     temp: number
     icon: string
@@ -47,6 +49,7 @@ export const fetchWeatherLogs = async ({
     each_image: doc.data().each_image,
     fullbody_image: doc.data().fullbody_image,
     userId: doc.data().userId,
+    tags: doc.data().tags,
     weather: {
       temp: doc.data().weather.temp,
       icon: doc.data().weather.icon,

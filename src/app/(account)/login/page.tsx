@@ -79,7 +79,7 @@ const Login = () => {
         },
       }).then((response) => {
         if (response.status === 200) {
-          router.back()
+          router.replace('/')
           router.refresh()
         }
       })
@@ -118,9 +118,8 @@ const Login = () => {
       })
 
       if (response.status === 200) {
-        router.push('/home')
-        //router.
-        //router.refresh()
+        router.replace('/')
+        router.refresh()
       }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {

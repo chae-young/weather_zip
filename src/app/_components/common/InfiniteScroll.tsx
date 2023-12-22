@@ -1,5 +1,6 @@
 import useIntersection from '@/hooks/useIntersection'
 import { useEffect, useRef } from 'react'
+import Spin from './Spin'
 
 interface InfiniteScrollProps {
   fetchMoreData: () => void
@@ -13,7 +14,11 @@ const InfiniteScroll = ({ fetchMoreData }: InfiniteScrollProps) => {
     if (isIntersecting) fetchMoreData()
   }, [isIntersecting])
 
-  return <div ref={ref} className="h-5 w-4 bg-black"></div>
+  return (
+    <div ref={ref} className="text-center">
+      <Spin />
+    </div>
+  )
 }
 
 export default InfiniteScroll

@@ -22,12 +22,12 @@ const Collection = async ({
       <InnerCon>
         <Tab />
 
-        <CollectionList
+        {/* <CollectionList
           tempMax={tempMax}
           tempMin={tempMin}
-          uid={user!.uid}
+          uid={user.uid}
           dataLimit={dataLimit}
-        />
+        /> */}
       </InnerCon>
       <Nav />
     </div>

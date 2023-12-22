@@ -1,8 +1,9 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { db } from '../../../firebase/firebasedb'
 import { redirect } from 'next/navigation'
 import { FirebaseError } from 'firebase/app'
+import { auth } from 'firebase-admin'
 
 export type Tuser = {
   isLogged: boolean
@@ -16,28 +17,38 @@ const fetchUser = async (): Promise<Tuser> => {
   const idToken = cookieStore.get('session')?.value
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
-      cache: 'no-store',
-      method: 'GET',
-      headers: {
-        Cookie: `session=${idToken}`,
-      },
-    })
-    if (response.status === 200) {
-      const result: Tuser = await response.json()
-      return result
-    } else {
-      console.error('로그인 실패')
-    }
-    return {
-      uid: '',
-      nickname: '',
-      email: '',
-      isLogged: false,
-    }
+    const decodedClaims = await auth().verifySessionCookie(
+      idToken as string,
+      false,
+    )
+    // 세션 유효 검증 실패
+    if (!decodedClaims) redirect('/login')
+
+    const q = query(
+      collection(db, 'users'),
+      where('uid', '==', decodedClaims.uid),
+    )
+    const querySnapshot = await getDocs(q)
+    const userInfo: Tuser = querySnapshot.docs.map((doc: any) => ({
+      ...doc.data(),
+      isLogged: true,
+      nickname: doc.data().nickname,
+    }))[0]
+
+    return userInfo
   } catch (error) {
-    console.error('사용자의 정보를 가져오지 못했습니다', error)
-    throw new Error()
+    const firebaseError = error as FirebaseError
+    if (firebaseError) {
+      const headersList = headers()
+      const pathname = headersList.get('x-invoke-path') || ''
+
+      if (pathname !== '/') redirect('/login')
+      return { isLogged: false, uid: '', nickname: '', email: '' }
+    } else {
+      // FirebaseError가 아닌 다른 에러 처리
+      console.error('Non-Firebase Error:', error)
+      throw new Error('Non-Firebase Error')
+    }
   }
 }
 

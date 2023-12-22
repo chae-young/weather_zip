@@ -38,6 +38,22 @@ const config: Config = {
         body6: '0.6rem',
       },
       keyframes: {
+        isUp: {
+          '0%': {
+            transform: 'translateY(100%)',
+          },
+          '99%': {
+            transform: 'translateY(0)',
+          },
+        },
+        isDown: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '99%': {
+            transform: 'translateY(100%)',
+          },
+        },
         slide: {
           '10%': {
             opacity: '1',
@@ -52,6 +68,8 @@ const config: Config = {
       },
       animation: {
         slide: 'slide 4s ease infinite',
+        isUp: '0.3s ease forwards isUp',
+        isDown: '0.3s ease forwards isDown',
       },
     },
   },

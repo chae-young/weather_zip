@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import TabList from './TabList'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const temps = [
   {
@@ -45,9 +45,10 @@ const Tab = () => {
 
   const handleOnClickFiltered = (query: string, idx: number) => {
     setIsActive(idx)
-    router.push(`collection?${query}`)
     //router.refresh()
+    router.push(`/user/collection?${query}`)
   }
+
   return (
     <div className="flex overflow-x-auto space-x-8 px-4 py-4">
       <ul className="flex shrink-0 gap-2">
