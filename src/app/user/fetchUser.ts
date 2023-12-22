@@ -22,7 +22,7 @@ const fetchUser = async (): Promise<Tuser> => {
       false,
     )
     // 세션 유효 검증 실패
-    if (!decodedClaims) redirect('/login')
+    //if (!decodedClaims) redirect('/login')
 
     const q = query(
       collection(db, 'users'),
@@ -42,7 +42,7 @@ const fetchUser = async (): Promise<Tuser> => {
       const headersList = headers()
       const pathname = headersList.get('next-url')
 
-      if (pathname) redirect('/login')
+      //if (pathname) redirect('/login')
       return { isLogged: false, uid: '', nickname: '', email: '' }
     } else {
       // FirebaseError가 아닌 다른 에러 처리
