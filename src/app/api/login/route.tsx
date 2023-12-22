@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { FirebaseError } from 'firebase-admin'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
-import { redirect } from 'next/navigation'
 
 adminInitApp()
 
@@ -37,9 +36,10 @@ export async function POST(request: NextRequest, response: NextResponse) {
   return NextResponse.json({}, { status: 200 })
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, response: NextResponse) {
   const cookieStore = cookies()
   const session = cookieStore.get('session')?.value || ''
+  //response.headers.set('Cache-Control', 'public, max-age=3600')
 
   //Firebase Admin SDK를 사용하여 세션 쿠키를 유효성 검사
   try {

@@ -81,6 +81,8 @@ const Login = () => {
         if (response.status === 200) {
           router.replace('/')
           router.refresh()
+        } else {
+          router.replace('/login')
         }
       })
     }
