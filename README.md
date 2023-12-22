@@ -35,7 +35,7 @@
 |                                                 옷차림 기록                                                 |                                             현재 날씨 정보 조회                                             |
 | <img src="https://github.com/chae-young/weather_zip/assets/28029685/1ef96dea-5ba4-4aaf-bbe0-6e5a9423fba8"/> | <img src="https://github.com/chae-young/weather_zip/assets/28029685/0e9560b3-c397-474e-b744-853dc8ba6695"/> |
 |                                          이미지 업로드시 태그 등록                                          |                                                                                                             |
-| <img src="https://github.com/chae-young/weather_zip/assets/28029685/1ef96dea-5ba4-4aaf-bbe0-6e5a9423fba8"/> |                                                                                                             |
+| <img src="https://github.com/chae-young/weather_zip/assets/28029685/0c571df1-2d93-4c89-906e-6b1c9c2fd69c"/> |                                                                                                             |
 
 <br/>
 <br/>
