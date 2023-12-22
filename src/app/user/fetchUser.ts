@@ -38,13 +38,11 @@ const fetchUser = async (): Promise<Tuser> => {
     return userInfo
   } catch (error) {
     const firebaseError = error as FirebaseError
-
     if (firebaseError) {
-      throw new Error(firebaseError.message)
       const headersList = headers()
       const pathname = headersList.get('next-url')
 
-      if (pathname) redirect('/login')
+      //if (pathname) redirect('/login')
       return { isLogged: false, uid: '', nickname: '', email: '' }
     } else {
       // FirebaseError가 아닌 다른 에러 처리
