@@ -18,6 +18,7 @@
 - 다른 유저들과 기록 공유 가능
 - 온도별로 내 기록을 조회할 수 있는 필터기능
 - (프로필)닉네임 수정
+- 🏷️ new 12.22 이미지 업로드시 태그 등록 가능
 
 <br/>
 <br/>
@@ -33,6 +34,8 @@
 | <img src="https://github.com/chae-young/weather_zip/assets/28029685/6424670f-71ba-425a-b4d1-e2c1aa8d63c6"/> | <img src="https://github.com/chae-young/weather_zip/assets/28029685/be0c6b00-42a8-41aa-8aa5-33986e702648"/> |
 |                                                 옷차림 기록                                                 |                                             현재 날씨 정보 조회                                             |
 | <img src="https://github.com/chae-young/weather_zip/assets/28029685/1ef96dea-5ba4-4aaf-bbe0-6e5a9423fba8"/> | <img src="https://github.com/chae-young/weather_zip/assets/28029685/0e9560b3-c397-474e-b744-853dc8ba6695"/> |
+|                                          이미지 업로드시 태그 등록                                          |                                                                                                             |
+| <img src="https://github.com/chae-young/weather_zip/assets/28029685/1ef96dea-5ba4-4aaf-bbe0-6e5a9423fba8"/> |                                                                                                             |
 
 <br/>
 <br/>
