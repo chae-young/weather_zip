@@ -40,9 +40,9 @@ const fetchUser = async (): Promise<Tuser> => {
     const firebaseError = error as FirebaseError
     if (firebaseError) {
       const headersList = headers()
-      const pathname = headersList.get('x-invoke-path') || ''
+      const pathname = headersList.get('next-url')
 
-      if (pathname !== '/') redirect('/login')
+      if (pathname) redirect('/login')
       return { isLogged: false, uid: '', nickname: '', email: '' }
     } else {
       // FirebaseError가 아닌 다른 에러 처리
