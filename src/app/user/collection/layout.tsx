@@ -14,8 +14,8 @@ const CollectionLayout = ({ children, tab, list }: CollectionLayoutProps) => {
       <TopTitle title="컬렉션" />
       <InnerCon>
         {tab}
+        {children}
         {list}
-        {/* {children} */}
       </InnerCon>
       <Nav />
     </div>
