@@ -1,5 +1,6 @@
-import fetchUser from '../../fetchUser'
-import { fetchCollection } from '../fetchCollection'
+'use client'
+
+import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 import CollectionItem from './CollectionItem'
 import LoadMoreCollection from './LoadMoreCollection'
 import { newLastDoc } from '@/util/timestampChange'
@@ -9,24 +10,20 @@ interface CollectionListProps {
   tempMax: number
   tempMin: number
   dataLimit: number
+  collections: Tcollection[]
+  uid: string
 }
 
 const CollectionList = async ({
   tempMax,
   tempMin,
   dataLimit,
+  collections,
+  uid,
 }: CollectionListProps) => {
-  // const user = await fetchUser()
-  // const collections = await fetchCollection({
-  //   tempMin: tempMin,
-  //   tempMax: tempMax,
-  //   lastDoc: null,
-  //   uid: user.uid,
-  // })
-
   return (
     <>
-      {/* {collections.length === 0 ? (
+      {collections.length === 0 ? (
         <div className="min-h-list flex justify-center mt-10 text-gray-400">
           등록한 컬렉션이 없어요.
         </div>
@@ -35,7 +32,7 @@ const CollectionList = async ({
           <CollectionItem collections={collections} />
           {collections.length >= dataLimit && (
             <LoadMoreCollection
-              uid={user.uid}
+              uid={uid}
               firstDataLength={collections.length}
               tempMin={tempMin}
               tempMax={tempMax}
@@ -46,7 +43,7 @@ const CollectionList = async ({
             />
           )}
         </ul>
-      )} */}
+      )}
     </>
   )
 }
