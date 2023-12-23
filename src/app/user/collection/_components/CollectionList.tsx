@@ -16,17 +16,17 @@ const CollectionList = async ({
   tempMin,
   dataLimit,
 }: CollectionListProps) => {
-  const user = await fetchUser()
-  const collections = await fetchCollection({
-    tempMin: tempMin,
-    tempMax: tempMax,
-    lastDoc: null,
-    uid: user.uid,
-  })
+  // const user = await fetchUser()
+  // const collections = await fetchCollection({
+  //   tempMin: tempMin,
+  //   tempMax: tempMax,
+  //   lastDoc: null,
+  //   uid: user.uid,
+  // })
 
   return (
     <>
-      {collections.length === 0 ? (
+      {/* {collections.length === 0 ? (
         <div className="min-h-list flex justify-center mt-10 text-gray-400">
           등록한 컬렉션이 없어요.
         </div>
@@ -46,7 +46,7 @@ const CollectionList = async ({
             />
           )}
         </ul>
-      )}
+      )} */}
     </>
   )
 }
