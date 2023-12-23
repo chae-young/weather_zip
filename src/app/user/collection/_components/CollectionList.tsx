@@ -16,7 +16,7 @@ const CollectionList = async ({
   tempMin,
   dataLimit,
 }: CollectionListProps) => {
-  // const user = await fetchUser()
+  const user = await fetchUser()
   const collections = await fetchCollection({
     tempMin: tempMin,
     tempMax: tempMax,
