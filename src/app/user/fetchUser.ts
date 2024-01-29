@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { FirebaseError } from 'firebase/app'
 import { auth } from 'firebase-admin'
 import { getAuth } from '@firebase/auth'
+import { adminInitApp } from '../../../firebase/firebase-admin-config'
 
 export type Tuser = {
   isLogged: boolean
@@ -12,7 +13,7 @@ export type Tuser = {
   nickname: string
   email: string
 }
-
+adminInitApp()
 const fetchUser = async (): Promise<Tuser | null> => {
   const cookieStore = cookies()
   const idToken = cookieStore.get('session')?.value
