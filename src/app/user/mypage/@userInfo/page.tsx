@@ -6,7 +6,7 @@ const UserInfo = async () => {
   return (
     <>
       <h2 className="text-2xl mt-4">{user?.nickname}</h2>
-      <CollectionLengInfo uid={user.uid} />
+      <CollectionLengInfo uid={user?.uid!} />
     </>
   )
 }
