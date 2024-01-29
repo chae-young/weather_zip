@@ -21,7 +21,7 @@ const TopTitle = ({ title, back, backLink }: TopTitleProps) => {
   }
 
   return (
-    <div className="bg-white h-[60px] flex items-center justify-center fixed left-0 right-0 w-full z-50">
+    <div className="max-w-[var(--container)] bg-white h-[60px] flex items-center justify-center fixed left-0 right-0 w-full z-50 m-auto">
       {back && (
         <button
           onClick={handleOnBack}
