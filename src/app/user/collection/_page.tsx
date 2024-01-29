@@ -20,7 +20,7 @@ const Collection = () => {
     paramTempMin,
     paramTempMax,
   )
-
+  console.log(collections)
   const fetchedData = useMemo(
     () => collections?.flatMap((data) => data),
     [collections],

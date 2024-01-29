@@ -10,8 +10,8 @@ import CollectionItem from './CollectionItem'
 interface LoadMoreCollectionProps {
   lastDoc?: Tcollection | false
   firstDataLength: number
-  tempMax: number
-  tempMin: number
+  tempMax?: number
+  tempMin?: number
   uid: string
 }
 

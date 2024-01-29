@@ -4,11 +4,12 @@ import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 import CollectionItem from './CollectionItem'
 import LoadMoreCollection from './LoadMoreCollection'
 import { newLastDoc } from '@/util/timestampChange'
+import { useSearchParams } from 'next/navigation'
 
 interface CollectionListProps {
   // collections: Tcollection[]
-  tempMax: number
-  tempMin: number
+  tempMax?: number
+  tempMin?: number
   dataLimit: number
   collections: Tcollection[]
   uid: string
@@ -21,6 +22,11 @@ const CollectionList = async ({
   collections,
   uid,
 }: CollectionListProps) => {
+  const searchParams = useSearchParams()
+
+  const getTempMin = searchParams.get('temp_min')
+  const getTempMax = searchParams.get('temp_max')
+
   return (
     <>
       {collections.length === 0 ? (

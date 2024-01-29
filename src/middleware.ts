@@ -11,19 +11,17 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  //세션 유효 검증
-  // try {
-  //   const decodedClaims = await auth().verifySessionCookie(session.value, true)
-  //   return NextResponse.json({ status: 200 })
-  // } catch (error) {
-  //   const firebaseError = error as FirebaseError
-  //   if (firebaseError) {
-  //     return NextResponse.json({ message: firebaseError.code, status: 500 })
-  //   } else {
-  //     // FirebaseError가 아닌 다른 에러 처리
-  //     console.error('Non-Firebase Error:', error)
-  //   }
+  // const res = await fetch('http://localhost:3000/api/login', {
+  //   method: 'GET',
+  //   headers: {
+  //     Cookie: `session=${session?.value}`,
+  //   },
+  // })
+
+  // if (res.status !== 200) {
+  //   return NextResponse.redirect(new URL('/login', request.url))
   // }
+
   return NextResponse.next()
 }
 

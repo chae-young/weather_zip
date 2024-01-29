@@ -1,10 +1,18 @@
 import { atom } from 'recoil'
+import { recoilPersist } from 'recoil-persist'
 
 export type IUser = {
   uid: string | null
   email: string | null
   nickname: string | null
 }
+const localStorage =
+  typeof window !== 'undefined' ? window.localStorage : undefined
+
+const { persistAtom } = recoilPersist({
+  key: 'userInfo',
+  storage: localStorage,
+})
 
 const userAtom = atom<IUser>({
   key: 'userAtom',
@@ -12,8 +20,8 @@ const userAtom = atom<IUser>({
     uid: '',
     email: '',
     nickname: '',
-    //temp: '',
   },
+  effects_UNSTABLE: [persistAtom],
 })
 
 export default userAtom

@@ -41,12 +41,24 @@ const temps = [
 
 const Tab = () => {
   const router = useRouter()
+
   const [isActive, setIsActive] = useState<null | number>(null)
 
-  const handleOnClickFiltered = (query: string, idx: number) => {
+  const handleOnClickFiltered = (
+    tempMin: number,
+    tempMax: number,
+    idx: number,
+  ) => {
     setIsActive(idx)
+
+    router.push(`collection?temp_min=${tempMin}&temp_max=${tempMax}`)
+
     //router.refresh()
-    router.push(`/user/collection?${query}`)
+    // history.replaceState(
+    //   null,
+    //   '',
+    //   `collection?temp_min=${tempMin}&temp_max=${tempMax}`,
+    // )
   }
 
   return (
@@ -61,10 +73,7 @@ const Tab = () => {
                 isActive={isActive}
                 content={`${temp.temp_max}도 이하`}
                 onClick={() =>
-                  handleOnClickFiltered(
-                    `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                    idx,
-                  )
+                  handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
                 }
               />
             )
@@ -77,10 +86,7 @@ const Tab = () => {
                 isActive={isActive}
                 content={`${temp.temp_min}도 이상`}
                 onClick={() =>
-                  handleOnClickFiltered(
-                    `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                    idx,
-                  )
+                  handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
                 }
               />
             )
@@ -92,10 +98,7 @@ const Tab = () => {
               isActive={isActive}
               content={`${temp.temp_min}도 ~ ${temp.temp_max}이하`}
               onClick={() =>
-                handleOnClickFiltered(
-                  `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                  idx,
-                )
+                handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
               }
             />
           )
