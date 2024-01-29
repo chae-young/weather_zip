@@ -3,6 +3,9 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import TabList from './TabList'
 import { useCallback, useEffect, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import collectionAtom from '@/recoil/atom/collectionAtom'
+import { fetchCollection } from '../fetchCollection'
 
 const temps = [
   {
@@ -43,6 +46,7 @@ const Tab = () => {
   const router = useRouter()
 
   const [isActive, setIsActive] = useState<null | number>(null)
+  const setCollectionState = useSetRecoilState(collectionAtom)
 
   const handleOnClickFiltered = (
     tempMin: number,
@@ -51,14 +55,18 @@ const Tab = () => {
   ) => {
     setIsActive(idx)
 
-    router.push(`collection?temp_min=${tempMin}&temp_max=${tempMax}`)
+    //router.push(`collection?temp_min=${tempMin}&temp_max=${tempMax}`)
 
-    //router.refresh()
-    // history.replaceState(
-    //   null,
-    //   '',
-    //   `collection?temp_min=${tempMin}&temp_max=${tempMax}`,
-    // )
+    setCollectionState((prevState) => ({
+      ...prevState,
+      tempMax: tempMax,
+      tempMin: tempMin,
+    }))
+    history.replaceState(
+      null,
+      '',
+      `collection?temp_min=${tempMin}&temp_max=${tempMax}`,
+    )
   }
 
   return (
