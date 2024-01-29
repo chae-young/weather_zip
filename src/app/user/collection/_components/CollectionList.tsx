@@ -4,11 +4,11 @@ import { Tcollection } from '@/app/(share)/weatherLogs/fetchWeatherLogs'
 import CollectionItem from './CollectionItem'
 import LoadMoreCollection from './LoadMoreCollection'
 import { newLastDoc } from '@/util/timestampChange'
-import { useSearchParams } from 'next/navigation'
 import collectionAtom from '@/recoil/atom/collectionAtom'
-import { useRecoilState, useSetRecoilState } from 'recoil'
-import { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { Suspense, useEffect } from 'react'
 import { fetchCollection } from '../fetchCollection'
+import useGetCollection from '@/hooks/swr/useGetCollection'
 
 interface CollectionListProps {
   // collections: Tcollection[]
@@ -19,14 +19,13 @@ interface CollectionListProps {
   uid: string
 }
 
-const CollectionList = async ({
+const CollectionList = ({
   tempMax,
   tempMin,
   dataLimit,
   collections,
   uid,
 }: CollectionListProps) => {
-  const searchParams = useSearchParams()
   const [collectionState, setCollectionState] = useRecoilState(collectionAtom)
 
   const reFetchCollection = async () => {
@@ -43,16 +42,16 @@ const CollectionList = async ({
   }
 
   useEffect(() => {
-    setCollectionState((prevState) => ({
-      ...prevState,
-      collections: collections,
-    }))
     if (collectionState.tempMax !== 0) {
       reFetchCollection()
+    } else {
+      setCollectionState((prevState) => ({
+        ...prevState,
+        collections: collections,
+      }))
     }
-  }, [collectionState.tempMax])
-
-  console.log(collectionState)
+    console.log(collectionState.collections)
+  }, [collectionState.tempMin])
 
   return (
     <>
@@ -70,8 +69,8 @@ const CollectionList = async ({
               tempMin={tempMin}
               tempMax={tempMax}
               lastDoc={
-                collections.length === dataLimit &&
-                newLastDoc(collections[collections.length - 1])
+                collectionState.collections.length === dataLimit &&
+                newLastDoc(collections[collectionState.collections.length - 1])
               }
             />
           )}
