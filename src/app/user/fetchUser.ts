@@ -1,10 +1,7 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { cookies, headers } from 'next/headers'
+import { cookies } from 'next/headers'
 import { db } from '../../../firebase/firebasedb'
-import { redirect } from 'next/navigation'
-import { FirebaseError } from 'firebase/app'
 import { auth } from 'firebase-admin'
-import { getAuth } from '@firebase/auth'
 import { adminInitApp } from '../../../firebase/firebase-admin-config'
 
 export type Tuser = {
@@ -17,15 +14,23 @@ adminInitApp()
 const fetchUser = async (): Promise<Tuser | null> => {
   const cookieStore = cookies()
   const idToken = cookieStore.get('session')?.value
-  const decodedClaims = await auth().verifySessionCookie(idToken!, false)
-  console.log(decodedClaims)
+  if (!idToken) return null
 
-  return {
-    uid: decodedClaims.uid,
-    email: decodedClaims.email!,
-    nickname: decodedClaims.name,
+  const decodedClaims = await auth().verifySessionCookie(idToken!, false)
+
+  //실시간 유저 업데이트시 정보 제공
+  const q = query(
+    collection(db, 'users'),
+    where('uid', '==', decodedClaims.uid),
+  )
+  const querySnapshot = await getDocs(q)
+  const userInfo = querySnapshot.docs.map((doc: any) => ({
+    ...doc.data(),
     isLogged: true,
-  }
+    nickname: doc.data().nickname,
+  }))[0]
+
+  return userInfo
   // const cookieStore = cookies()
   // const idToken = cookieStore.get('session')?.value
 
