@@ -16,15 +16,12 @@ import useInputChange from '@/hooks/useInputChange'
 import InputField from '../../_components/InputField'
 import WideButton from '../../_components/Button/WideButton'
 import { addDoc, collection } from 'firebase/firestore'
-import { useRecoilState, useSetRecoilState } from 'recoil'
-import userAtom from '@/recoil/atom/userAtom'
 
 const Login = () => {
   const router = useRouter()
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
   const [confirmLoginError, setConfirmLoginError] = useState('')
-  const setUserState = useSetRecoilState(userAtom)
 
   // const handleOnSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault()
@@ -117,17 +114,11 @@ const Login = () => {
           Authorization: `Bearer ${idToken}`,
         },
       })
-      setUserState({
-        uid: credential.user.uid,
-        nickname: credential.user.displayName,
-        email: credential.user.email,
-      })
-      console.log(credential.user)
 
-      // if (response.status === 200) {
-      //   router.replace('/')
-      //   router.refresh()
-      // }
+      if (response.status === 200) {
+        router.replace('/')
+        router.refresh()
+      }
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         //console.log(error.code)
