@@ -1,5 +1,3 @@
-import { auth } from 'firebase-admin'
-import { FirebaseError } from 'firebase/app'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
