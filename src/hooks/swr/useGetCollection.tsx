@@ -9,6 +9,10 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../../firebase/firebasedb'
 import useSWRInfinite from 'swr/infinite'
+import useSWR from 'swr'
+import { fetchCollection } from '@/app/user/collection/fetchCollection'
+import { useRecoilValue } from 'recoil'
+import collectionAtom from '@/recoil/atom/collectionAtom'
 
 type Tcollection = {
   id: string
@@ -65,24 +69,23 @@ const fetcher = async (fetchInfo: any): Promise<Tcollection[]> => {
   return data
 }
 
-const useGetCollection = (tempMin: number, tempMax: number) => {
-  const getKey = (pageIndex: number, previousPageData: Tcollection[]) => {
-    if (previousPageData && !previousPageData.length) return null
-    if (pageIndex === 0) return ['collection', tempMin, tempMax]
-    const lastDoc = previousPageData[previousPageData.length - 1]
-    if (lastDoc) return ['collection', tempMin, tempMax, lastDoc.timestamp]
-  }
+const useGetCollection = (uid: string) => {
+  const collectionInfo = useRecoilValue(collectionAtom)
+  // if (collectionInfo.tempMax === 0) return
 
-  const {
-    data: collections,
-    size,
-    setSize,
-  } = useSWRInfinite<Tcollection[]>(getKey, fetcher)
+  const { data: tabClickedCollections, isLoading } = useSWR<Tcollection[]>(
+    'collection',
+    () =>
+      fetchCollection({
+        tempMin: collectionInfo.tempMin,
+        tempMax: collectionInfo.tempMax,
+        uid,
+      }),
+  )
 
   return {
-    collections,
-    size,
-    setSize,
+    tabClickedCollections,
+    isLoading,
   }
 }
 

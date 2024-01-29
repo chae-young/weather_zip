@@ -1,4 +1,3 @@
-import TopTitle from '@/app/_components/common/TopTitle'
 import fetchUser from '../fetchUser'
 import UpdateProfile from './_components/UpdateProfile'
 
