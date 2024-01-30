@@ -18,6 +18,7 @@ const CollectionItem = ({ collections }: CollectionItemProps) => {
               <Image
                 src={collection.fullbody_image}
                 fill
+                priority
                 className="object-cover"
                 sizes="(min-width: 640px) 50vw, 100vw"
                 alt={collection.weather.desc}
