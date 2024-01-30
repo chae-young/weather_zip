@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { db } from '../../../firebase/firebasedb'
 import { auth } from 'firebase-admin'
 import { adminInitApp } from '../../../firebase/firebase-admin-config'
+import { redirect } from 'next/navigation'
 
 export type Tuser = {
   isLogged: boolean
@@ -17,6 +18,7 @@ const fetchUser = async (): Promise<Tuser | null> => {
   if (!idToken) return null
 
   const decodedClaims = await auth().verifySessionCookie(idToken!, false)
+  if (!decodedClaims.uid) redirect('/login')
 
   //실시간 유저 업데이트시 정보 제공
   const q = query(
