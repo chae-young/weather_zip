@@ -1,6 +1,7 @@
 import fetchUser from '@/app/user/fetchUser'
-import RecommendList from '../RecommendList'
-import TempClothing from '../TempClothingList'
+import dynamic from 'next/dynamic'
+const RecommendList = dynamic(() => import('../RecommendList'))
+const TempClothing = dynamic(() => import('../TempClothingList'))
 
 const HomeList = async () => {
   const user = await fetchUser()

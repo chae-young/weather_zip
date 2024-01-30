@@ -1,7 +1,10 @@
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
 import { Ttag } from '@/recoil/atom/imageTagsAtom'
-import ImageOnTherTagList from '../../ImageOnTheTagList'
+const ImageOnTherTagList = dynamic(
+  () => import('@/app/_components/ImageOnTheTagList'),
+)
 
 interface ImageFeedProps {
   tags: Ttag[] | []
@@ -22,6 +25,7 @@ const ImageFeed = ({
         {fullbody_image && (
           <>
             <Image
+              priority={true}
               src={fullbody_image}
               alt={desc}
               fill
