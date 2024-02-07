@@ -5,22 +5,30 @@ import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from '../../../../../firebase/firebasedb'
 import { useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
-
-import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
-import SubWeatherCon from '@/app/_components/SubWeatherCon'
-import SkeletonInfoWeather from '../_skeleton/SkeletonInfoWeather'
-import BottomRoundedCon from '@/app/_components/BottomRoundedCon'
-import WideButton from '@/app/_components/Button/WideButton'
-import UploadImage from './UploadImage'
-import UploadMultiImage from './UploadMultiImage'
-import useImageUpload from '@/hooks/useImageUpload'
+import dynamic from 'next/dynamic'
 import { Tuser } from '../../fetchUser'
-import Nav from '@/app/_components/common/Nav'
-import TopTitle from '@/app/_components/common/TopTitle'
-import InnerCon from '@/app/_components/common/InnerCon'
+import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
+import useImageUpload from '@/hooks/useImageUpload'
+
+const SubWeatherCon = dynamic(() => import('@/app/_components/SubWeatherCon'))
+const SkeletonInfoWeather = dynamic(
+  () => import('../_skeleton/SkeletonInfoWeather'),
+)
+const BottomRoundedCon = dynamic(
+  () => import('@/app/_components/BottomRoundedCon'),
+)
+const WideButton = dynamic(() => import('@/app/_components/Button/WideButton'))
+const UploadImage = dynamic(() => import('./UploadImage'))
+const UploadMultiImage = dynamic(() => import('./UploadMultiImage'))
+
+const Nav = dynamic(() => import('@/app/_components/common/Nav'))
+const TopTitle = dynamic(() => import('@/app/_components/common/TopTitle'))
+const InnerCon = dynamic(() => import('@/app/_components/common/InnerCon'))
 import imagTagsAtom from '@/recoil/atom/imageTagsAtom'
-import ModalImageOnTags from './modal/ModalImageOnTags'
-import ImageOnTherTagList from '@/app/_components/ImageOnTheTagList'
+const ModalImageOnTags = dynamic(() => import('./modal/ModalImageOnTags'))
+const ImageOnTherTagList = dynamic(
+  () => import('@/app/_components/ImageOnTheTagList'),
+)
 
 interface WriteContentProps {
   user: Tuser | undefined

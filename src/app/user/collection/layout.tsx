@@ -15,7 +15,6 @@ const CollectionLayout = ({ children, tab, list }: CollectionLayoutProps) => {
       <InnerCon>
         {tab}
         {list}
-        {/* {children} */}
       </InnerCon>
       <Nav />
     </div>

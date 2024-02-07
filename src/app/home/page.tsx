@@ -1,10 +1,10 @@
+import dynamic from 'next/dynamic'
 import Nav from '../_components/common/Nav'
-import fetchUser from '../user/fetchUser'
-import CurrentDaysWeather from './CurrentDaysWeather'
-import CurrentWeather from './CurrentWeather'
-import HomeList from './_components/HomeList'
-import RecommendList from './_components/RecommendList'
-import TempClothing from './_components/TempClothingList'
+const CurrentDaysWeather = dynamic(() => import('./CurrentDaysWeather'), {
+  ssr: false,
+})
+const CurrentWeather = dynamic(() => import('./CurrentWeather'), { ssr: false })
+const HomeList = dynamic(() => import('./_components/HomeList'), { ssr: false })
 
 const Home = async () => {
   return (

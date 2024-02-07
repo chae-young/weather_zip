@@ -5,7 +5,7 @@ const Write = async () => {
   const user = await fetchUser()
   return (
     <div className="bg-pointSubBg h-screen">
-      <WriteContent user={user} />
+      <WriteContent user={user!} />
     </div>
   )
 }

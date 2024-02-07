@@ -31,14 +31,15 @@ const UploadImage = ({
   return (
     <>
       {imageURL ? (
-        <div className="relative w-full h-auto aspect-square rounded-2xl overflow-hidden touch-none">
+        <div className="relative w-full h-auto rounded-2xl overflow-hidden touch-none">
           <Image
             src={imageURL}
             alt="btnStart"
-            fill
+            width={0}
+            height={0}
             sizes="(min-width: 640px) 50vw, 100vw"
             placeholder="blur"
-            className="object-cover"
+            className="w-full"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
           />
           <button

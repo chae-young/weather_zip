@@ -3,6 +3,9 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import TabList from './TabList'
 import { useCallback, useEffect, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import collectionAtom from '@/recoil/atom/collectionAtom'
+import { fetchCollection } from '../fetchCollection'
 
 const temps = [
   {
@@ -41,12 +44,29 @@ const temps = [
 
 const Tab = () => {
   const router = useRouter()
-  const [isActive, setIsActive] = useState<null | number>(null)
 
-  const handleOnClickFiltered = (query: string, idx: number) => {
+  const [isActive, setIsActive] = useState<null | number>(null)
+  const setCollectionState = useSetRecoilState(collectionAtom)
+
+  const handleOnClickFiltered = (
+    tempMin: number,
+    tempMax: number,
+    idx: number,
+  ) => {
     setIsActive(idx)
-    //router.refresh()
-    router.push(`/user/collection?${query}`)
+
+    //router.push(`collection?temp_min=${tempMin}&temp_max=${tempMax}`)
+
+    setCollectionState((prevState) => ({
+      ...prevState,
+      tempMax: tempMax,
+      tempMin: tempMin,
+    }))
+    history.replaceState(
+      null,
+      '',
+      `collection?temp_min=${tempMin}&temp_max=${tempMax}`,
+    )
   }
 
   return (
@@ -61,10 +81,7 @@ const Tab = () => {
                 isActive={isActive}
                 content={`${temp.temp_max}도 이하`}
                 onClick={() =>
-                  handleOnClickFiltered(
-                    `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                    idx,
-                  )
+                  handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
                 }
               />
             )
@@ -77,10 +94,7 @@ const Tab = () => {
                 isActive={isActive}
                 content={`${temp.temp_min}도 이상`}
                 onClick={() =>
-                  handleOnClickFiltered(
-                    `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                    idx,
-                  )
+                  handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
                 }
               />
             )
@@ -92,10 +106,7 @@ const Tab = () => {
               isActive={isActive}
               content={`${temp.temp_min}도 ~ ${temp.temp_max}이하`}
               onClick={() =>
-                handleOnClickFiltered(
-                  `temp_min=${temp.temp_min}&temp_max=${temp.temp_max}`,
-                  idx,
-                )
+                handleOnClickFiltered(temp.temp_min, temp.temp_max, idx)
               }
             />
           )

@@ -12,7 +12,6 @@ const userAtom = atom<IUser>({
     uid: '',
     email: '',
     nickname: '',
-    //temp: '',
   },
 })
 
