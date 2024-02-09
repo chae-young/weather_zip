@@ -1,4 +1,3 @@
-import withPlaiceholder from '@plaiceholder/next'
 import bundleAnalyzer from '@next/bundle-analyzer'
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -17,4 +16,4 @@ const nextConfig = {
   },
 }
 
-export default withPlaiceholder(nextConfig)
+export default withBundleAnalyzer(nextConfig)
