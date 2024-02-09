@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import RecoilRootProvider from './recoilRootProvider'
+import ToastProvider from './providers/ToastProvider'
+import RecoilRootProvider from './providers/recoilRootProvider'
 
 const customFont = localFont({
   src: [
@@ -27,7 +28,7 @@ const customFont = localFont({
 
 export const metadata: Metadata = {
   title: '날씨.zip',
-  description: '...준비중',
+  description: '날씨정보와 코디기록, 코디공유를 한번에',
 }
 
 export default function RootLayout({
@@ -39,9 +40,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${customFont.variable}`}>
         <RecoilRootProvider>
-          <div className="max-w-[var(--container)] m-auto h-screen">
-            {children}
-          </div>
+          <ToastProvider>
+            <div className="max-w-[var(--container)] m-auto h-screen">
+              {children}
+            </div>
+          </ToastProvider>
         </RecoilRootProvider>
       </body>
     </html>
