@@ -1,14 +1,17 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
+
+import { Tcollection } from '../fetchWeatherLogs'
+
 import { lastDocTimestamp } from '@/util/timestampChange'
-import { Tcollection, fetchWeatherLogs } from '../fetchWeatherLogs'
 
 const InfiniteScroll = dynamic(
   () => import('@/app/_components/common/InfiniteScroll'),
+  { ssr: false },
 )
-const WeatherLogList = dynamic(() => import('./WeatherLogList'))
+const WeatherLogList = dynamic(() => import('./WeatherLogList'), { ssr: false })
 
 interface LoadMoreLogsProps {
   lastDoc?: Tcollection | false
@@ -20,8 +23,11 @@ const LoadMoreLogs = ({ lastDoc, firstDataLength }: LoadMoreLogsProps) => {
   const [dataLength, setdataLength] = useState(firstDataLength)
   const [loaedMoreLastDac, setLoaedMoreLastDac] = useState(lastDoc)
 
-  const fetchMoreData = () => {
+  const fetchMoreData = async () => {
     if (loaedMoreLastDac) {
+      const fetchWeatherLogs = await import('../fetchWeatherLogs').then(
+        (mod) => mod.fetchWeatherLogs,
+      )
       fetchWeatherLogs({
         dataLimit: 10,
         lastDoc: lastDocTimestamp(loaedMoreLastDac),
