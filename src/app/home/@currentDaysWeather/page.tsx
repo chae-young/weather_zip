@@ -5,7 +5,7 @@ import Image from 'next/image'
 import useSWR from 'swr'
 import useGeolocation from '@/hooks/useGeolocation'
 import weatherIcons from '@/util/weatherIcons'
-import SkeletonCurrentDays from './_skeleton/SkeletonCurrentDays'
+import SkeletonCurrentDays from '../_skeleton/SkeletonCurrentDays'
 
 interface ICurrentDay {
   clouds: { all: number }

@@ -1,20 +1,24 @@
 import dynamic from 'next/dynamic'
-import Nav from '../_components/common/Nav'
-const CurrentDaysWeather = dynamic(() => import('./CurrentDaysWeather'), {
+import fetchUser from '@/app/user/fetchUser'
+const RecommendList = dynamic(() => import('./_components/RecommendList'), {
   ssr: false,
 })
-const CurrentWeather = dynamic(() => import('./CurrentWeather'), { ssr: false })
-const HomeList = dynamic(() => import('./_components/HomeList'), { ssr: false })
+const TempClothing = dynamic(() => import('./_components/TempClothingList'), {
+  ssr: false,
+})
 
 const Home = async () => {
+  const user = await fetchUser()
   return (
     <>
-      <section className="bg-pointBg flex flex-col justify-center items-center relative overflow-hidden">
-        <CurrentWeather />
-        <CurrentDaysWeather />
-        <HomeList />
-      </section>
-      <Nav />
+      <article className="w-full">
+        <section className="w-full rounded-tl-[30px] rounded-tr-[30px] bg-white pt-10 px-5 min-h-min pb-16">
+          <RecommendList />
+          {user?.isLogged && (
+            <TempClothing isLogged={user?.isLogged} uid={user.uid} />
+          )}
+        </section>
+      </article>
     </>
   )
 }

@@ -5,8 +5,9 @@ import { HiLocationMarker } from 'react-icons/hi'
 import { MdPlayArrow } from 'react-icons/md'
 
 import weatherIcons from '@/util/weatherIcons'
-import SkeletonCurrentWeather from './_skeleton/SkeletonCurrentWeather'
+
 import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
+import SkeletonCurrentWeather from '../_skeleton/SkeletonCurrentWeather'
 
 const CurrentWeather = () => {
   const { currentWeather, loaded, isLoading, isValidating, locationError } =
