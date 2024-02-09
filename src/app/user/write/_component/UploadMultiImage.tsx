@@ -43,13 +43,14 @@ const UploadMultiImage = ({
         />
         {imageList.map((url, idx) => (
           <div
-            className="relative w-28 h-28 rounded-2xl overflow-hidden"
+            className="rounded-2xl overflow-hidden w-28 h-28"
             key={`${idx + url}`}
           >
             <Image
               src={url}
               alt="btnStart"
-              fill
+              width={112}
+              height={112}
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
             />
