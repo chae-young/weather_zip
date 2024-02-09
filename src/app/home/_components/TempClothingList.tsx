@@ -29,6 +29,7 @@ const TempClothing = ({ isLogged, uid }: TempClothingProps) => {
             {tempClothingList?.map((list: ItempClothing) => (
               <div className="rounded-2xl overflow-hidden mr-1" key={list.id}>
                 <Image
+                  priority={true}
                   src={list.fullbody_image}
                   alt="내가 비슷한 온도에 입었어요."
                   width={140}

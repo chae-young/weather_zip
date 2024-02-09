@@ -19,6 +19,7 @@ const RecommendList = () => {
           {recommendList?.list.map((url: string) => (
             <div className="rounded-2xl overflow-hidden mr-1" key={url}>
               <Image
+                priority={true}
                 src={url}
                 alt={recommendList.title}
                 width={140}
