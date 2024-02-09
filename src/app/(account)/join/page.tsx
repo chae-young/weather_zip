@@ -14,6 +14,7 @@ import useInputChange from '@/hooks/useInputChange'
 import InputField from '../../_components/InputField'
 import InnerCon from '../../_components/common/InnerCon'
 import { addDoc, collection } from 'firebase/firestore'
+import useToast from '@/hooks/useToast'
 
 const Join = () => {
   const router = useRouter()
@@ -25,6 +26,7 @@ const Join = () => {
   const [passwordError, setPasswordError] = useState('')
   const [confirmPasswordError, setConfirmPasswordError] = useState('')
   const [confirmEmailError, setConfirmEmailError] = useState('')
+  const { toastPromise } = useToast()
 
   const joinWithnickname = async (user: User | null) => {
     if (user) {
@@ -48,11 +50,12 @@ const Join = () => {
     ) => {}
 
     try {
-      const createdUser = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
+      toastPromise(
+        createUserWithEmailAndPassword(auth, email, password),
+        '잠시만 기다려주세요',
+        '회원가입이 완료되었습니다.',
       )
+
       const user = auth.currentUser
       joinWithnickname(user)
 

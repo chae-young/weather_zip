@@ -35,9 +35,8 @@ const UploadImage = ({
           <Image
             src={imageURL}
             alt="btnStart"
-            width={0}
-            height={0}
-            sizes="(min-width: 640px) 50vw, 100vw"
+            width={560}
+            height={560}
             placeholder="blur"
             className="w-full"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="

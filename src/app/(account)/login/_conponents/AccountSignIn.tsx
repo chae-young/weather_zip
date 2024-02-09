@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import useInputChange from '@/hooks/useInputChange'
+import useToast from '@/hooks/useToast'
 
 interface SignInProps {}
 
@@ -16,6 +17,7 @@ const AccountSignIn = ({}: SignInProps) => {
   const [email, setEmail, handleChangeEmail] = useInputChange('')
   const [password, setPassword, handleChangePassword] = useInputChange('')
   const [confirmLoginError, setConfirmLoginError] = useState('')
+  const { toastPromise, toastSuccess } = useToast()
 
   const siginIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,12 +26,16 @@ const AccountSignIn = ({}: SignInProps) => {
       const credential = await signInWithEmailAndPassword(auth, email, password)
 
       const idToken = await credential.user.getIdToken()
-      const response = await fetch('/api/login', {
+
+      const responsePromise = fetch('/api/login', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
       })
+
+      toastPromise(responsePromise, '로그인 중...', '로그인 되었습니다.')
+      const response = await responsePromise
 
       if (response.status === 200) {
         router.replace('/')

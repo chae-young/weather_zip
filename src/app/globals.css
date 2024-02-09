@@ -45,3 +45,7 @@ body {
 .min-h-list {
   min-height: calc(100vh - 150px);
 }
+
+.Toastify__toast-container {
+  font-size: 14px;
+}

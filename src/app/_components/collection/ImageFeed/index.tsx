@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-
 import { Ttag } from '@/recoil/atom/imageTagsAtom'
 const ImageOnTherTagList = dynamic(
   () => import('@/app/_components/ImageOnTheTagList'),
@@ -13,7 +12,7 @@ interface ImageFeedProps {
   each_image: string[]
 }
 
-const ImageFeed = ({
+const ImageFeed = async ({
   tags,
   fullbody_image,
   desc,
@@ -21,19 +20,18 @@ const ImageFeed = ({
 }: ImageFeedProps) => {
   return (
     <>
-      <div className="overflow-hidden w-full min-h-[360px] rounded-2xl relative">
+      <div className="overflow-hidden w-full rounded-2xl relative">
         {fullbody_image && (
           <>
             <Image
               priority={true}
               src={fullbody_image}
               alt={desc}
-              width={0}
-              height={0}
+              width={560}
+              height={560}
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-              className="rounded-2xl w-full"
-              sizes="(min-width: 640px) 50vw, 100vw"
+              className="rounded-2xl w-full h-full"
             />
             <ImageOnTherTagList tags={tags} />
           </>
@@ -43,18 +41,16 @@ const ImageFeed = ({
         <div className="flex shrink-0 gap-1">
           {each_image &&
             each_image.map((url: string, idx: number) => (
-              <div
-                key={idx}
-                className="w-[140px] h-[140px] overflow-hidden rounded-2xl relative"
-              >
+              <div key={idx} className="overflow-hidden rounded-2xl relative">
                 <Image
+                  priority={true}
                   src={url}
                   alt={desc}
-                  fill
+                  width={140}
+                  height={140}
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
-                  className="object-cover"
-                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover w-36 h-36"
                 />
               </div>
             ))}

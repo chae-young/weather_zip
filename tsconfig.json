@@ -30,7 +30,8 @@
     "eslintrc.json",
     "firebase/firebasedb.ㅓs",
     "firebase/firestore.js",
-    "firebase/firebasedb.js"
+    "firebase/firebasedb.js",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

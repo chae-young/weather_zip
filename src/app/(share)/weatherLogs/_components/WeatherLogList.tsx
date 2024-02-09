@@ -1,9 +1,12 @@
+'use client'
+
 import Image from 'next/image'
 
 import weatherIcons from '@/util/weatherIcons'
 import ImageFeed from '@/app/_components/collection/ImageFeed'
-import { toDateTime } from '@/util/timestampChange'
+import { newLastDoc, toDateTime } from '@/util/timestampChange'
 import { Tcollection } from '../fetchWeatherLogs'
+import LoadMoreLogs from './LoadMoreLogs'
 
 interface WeatherLogListProps {
   weatherLogs: Tcollection[]
@@ -31,11 +34,12 @@ const WeatherLogList = ({ weatherLogs }: WeatherLogListProps) => {
           <div className="flex gap-2">
             <span className="bg-[#f5f5f5] rounded-2xl h-6 px-3 text-body4 flex justify-center items-center">
               <Image
+                priority={true}
                 src={weatherIcons[weatherLog.weather.icon?.substring(0, 2)]}
                 width={15}
                 height={15}
                 alt={weatherLog.weather.desc}
-                className="mr-1"
+                className="mr-1 w-4 h-4"
               />
               {weatherLog.weather.desc}
             </span>

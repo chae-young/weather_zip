@@ -17,14 +17,15 @@ const SkeletonInfoWeather = dynamic(
 const BottomRoundedCon = dynamic(
   () => import('@/app/_components/BottomRoundedCon'),
 )
-const WideButton = dynamic(() => import('@/app/_components/Button/WideButton'))
+import WideButton from '@/app/_components/Button/WideButton'
 const UploadImage = dynamic(() => import('./UploadImage'))
 const UploadMultiImage = dynamic(() => import('./UploadMultiImage'))
 
-const Nav = dynamic(() => import('@/app/_components/common/Nav'))
-const TopTitle = dynamic(() => import('@/app/_components/common/TopTitle'))
-const InnerCon = dynamic(() => import('@/app/_components/common/InnerCon'))
+import Nav from '@/app/_components/common/Nav'
+import TopTitle from '@/app/_components/common/TopTitle'
+import InnerCon from '@/app/_components/common/InnerCon'
 import imagTagsAtom from '@/recoil/atom/imageTagsAtom'
+import useToast from '@/hooks/useToast'
 const ModalImageOnTags = dynamic(() => import('./modal/ModalImageOnTags'))
 const ImageOnTherTagList = dynamic(
   () => import('@/app/_components/ImageOnTheTagList'),
@@ -41,6 +42,7 @@ const WriteContent = ({ user }: WriteContentProps) => {
   const [isOpenLayer, setIsOpenLayer] = useState(false)
   const [isCloseLayer, setIsCloseLayer] = useState(false)
   const [tags, setTags] = useRecoilState(imagTagsAtom)
+  const { toastPromise, toastError } = useToast()
 
   const {
     handelImageUpload: multiHandelImageUpload,
@@ -64,8 +66,7 @@ const WriteContent = ({ user }: WriteContentProps) => {
     try {
       const docRef = await doc(collection(db, 'collection'))
       const { id } = docRef
-
-      await setDoc(docRef, {
+      const setDocPromise = setDoc(docRef, {
         id,
         userId: user?.uid,
         nickname: user?.nickname,
@@ -80,10 +81,13 @@ const WriteContent = ({ user }: WriteContentProps) => {
         fullbody_image: imageURL,
         each_image: imageList,
       })
+      toastPromise(setDocPromise, '업로드중...', '등록이 완료됬습니다.')
+      await setDocPromise
       setTags([])
       router.push(`/user/recordDetail/${id}`)
     } catch (err) {
       console.error(err)
+      toastError('에러가 발생했습니다. 다시 시도해주세요')
       throw err
     }
   }
