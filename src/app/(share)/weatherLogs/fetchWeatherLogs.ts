@@ -5,7 +5,6 @@ import {
   orderBy,
   query,
   startAfter,
-  startAt,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase/firebasedb'
 import { Ttag } from '@/recoil/atom/imageTagsAtom'
@@ -25,14 +24,13 @@ export type Tcollection = {
     desc: string
   }
 }
-export const revalidate = 1
 export const fetchWeatherLogs = async ({
   dataLimit,
   lastDoc,
 }: {
   dataLimit: number
   lastDoc: any
-}) => {
+}): Promise<Tcollection[]> => {
   const q = query(
     collection(db, 'weatherlog'),
     orderBy('timestamp', 'desc'),
