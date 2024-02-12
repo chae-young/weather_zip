@@ -1,26 +1,24 @@
-import Nav from '@/app/_components/common/Nav'
+import Nav from '../_components/common/Nav'
 
-interface HomeLayoutProps {
-  currentWeather: React.ReactNode
-  currentDaysWeather: React.ReactNode
+interface HomelayoutProps {
   children: React.ReactNode
+  homeList: React.ReactNode
 }
 
-const HomeLayout = ({
-  children,
-  currentWeather,
-  currentDaysWeather,
-}: HomeLayoutProps) => {
+const Homelayout = ({ children, homeList }: HomelayoutProps) => {
   return (
     <>
       <section className="bg-pointBg flex flex-col justify-center items-center relative overflow-hidden">
-        {currentWeather}
-        {currentDaysWeather}
         {children}
       </section>
-      <Nav />
+      <article className="w-full bg-pointBg">
+        <section className="w-full rounded-tl-[30px] rounded-tr-[30px] bg-white pt-10 px-5 min-h-min pb-16">
+          {homeList}
+        </section>
+        <Nav />
+      </article>
     </>
   )
 }
 
-export default HomeLayout
+export default Homelayout

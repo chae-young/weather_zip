@@ -23,19 +23,20 @@ const AccountSignIn = ({}: SignInProps) => {
     e.preventDefault()
 
     try {
-      const credential = await signInWithEmailAndPassword(auth, email, password)
-
+      const credentialPromise = signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      )
+      toastPromise(credentialPromise, '로그인 중...', '로그인 되었습니다.')
+      const credential = await credentialPromise
       const idToken = await credential.user.getIdToken()
-
-      const responsePromise = fetch('/api/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${idToken}`,
         },
       })
-
-      toastPromise(responsePromise, '로그인 중...', '로그인 되었습니다.')
-      const response = await responsePromise
 
       if (response.status === 200) {
         router.replace('/')

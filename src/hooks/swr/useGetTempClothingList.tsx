@@ -57,6 +57,7 @@ export const useGetTempClothingList = (isLogged: boolean, uid: string) => {
     `tempclothing-${currentWeather.temp}-user-${isLogged}`,
     () => fetcher(Number(currentWeather.temp), uid),
     {
+      suspense: true,
       revalidateOnMount: false,
       revalidateOnFocus: false,
     },

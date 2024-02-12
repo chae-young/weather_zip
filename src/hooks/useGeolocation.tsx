@@ -17,6 +17,7 @@ const useGeolocation = () => {
   const onSuccess = (position: {
     coords: { latitude: number; longitude: number }
   }) => {
+    console.log('성공')
     setLocation({
       loaded: true,
       coordinates: {
@@ -32,7 +33,7 @@ const useGeolocation = () => {
       coordinates: { lat: 0, lng: 0 },
       error: {
         code: 1,
-        message: 'GPS를 허용해주세요.',
+        message: '현재위치 설정을 허용해주세요.',
       },
     })
   }

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SkeletonRecommendList = () => (
   <div className="animate-pulse">
     <h3 className="bg-gray-200 w-60 h-5 rounded-2xl mb-4">{}</h3>
