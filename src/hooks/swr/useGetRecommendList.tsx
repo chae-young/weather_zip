@@ -38,8 +38,10 @@ export const useGetRecommendList = () => {
     data: recommendList,
     isValidating,
     isLoading,
-  } = useSWR(`recommendation-${currentWeather.temp}`, () =>
-    fetcher(Number(currentWeather.temp)),
+  } = useSWR(
+    `recommendation-${currentWeather.temp}`,
+    () => fetcher(Number(currentWeather.temp)),
+    { suspense: true },
   )
 
   return {

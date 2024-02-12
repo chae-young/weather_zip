@@ -42,11 +42,12 @@ const CurrentWeather = () => {
       </div>
       {icon && (
         <Image
+          priority={true}
           src={weatherIcons[icon]}
           width={138}
           height={153}
-          alt=""
-          className="m-auto"
+          alt={currentWeather.desc!}
+          className="m-auto w-[138px] h-[153px]"
         />
       )}
 
