@@ -92,14 +92,14 @@ Next.js를 사용하게 되면서 어떤 라우터를 사용해야 할지 고민
 그런데 문득 드는 생각이 그러면 서버 컴포넌트를 쓸일이 없는거 아닌가..? 리액트아냐? 라는 생각이 들면서 써치를 하기 시작!!!  
 SSR+CSR을 조합해서 인피니트 스크롤을 구현해야 하는것!!
 
-```
+```js
 const WeatherLogs = async () => {
   const weatherLogs = await fetchWeatherLogs({ dataLimit: 10, lastDoc: null })
 ```
 
 서버 컴포넌트에서 초기에 데이터를 가져온다.
 
-```
+```js
 const LoadMoreLogs = ({ lastDoc, firstDataLength }: LoadMoreLogsProps) => {
  ... 로직 생략
 
@@ -133,11 +133,14 @@ InfiniteScroll 컴포넌트에서 화면 뷰포트에 닿을시 fetchWeatherLogs
 
 HTML5에서는 [drag and drop API](https://www.w3schools.com/html/html5_draganddrop.asp)를 제공한다. 별도의 라이브러리 필요없이 구현 할 수 있다.
 
-```
-  const { handleTouchStart, handleTouchMove, handleTouchEnd } =
-    useImageTouchEvent(ref, imageSize, setTags)
-  const { handleMouseMove, handleMouseDown, handleMouseUp } =
-    useImageMouseEvent(ref, imageSize, setTags)
+```js
+const { handleTouchStart, handleTouchMove, handleTouchEnd } =
+  useImageTouchEvent(ref, imageSize, setTags)
+const { handleMouseMove, handleMouseDown, handleMouseUp } = useImageMouseEvent(
+  ref,
+  imageSize,
+  setTags,
+)
 ```
 
 모바일과 pc에서 동시에 동작할 수 있도록 두개의 **hook** 으로 만들었다.
@@ -147,7 +150,7 @@ HTML5에서는 [drag and drop API](https://www.w3schools.com/html/html5_dragandd
 
 <br/>
 
-```
+```js
 <li key={tag.id}>
     <button
     id={tag.id}
@@ -254,7 +257,7 @@ touch 조작은 쉽다. 구현하면서 오류가 크게 생기지 않았다.
 firebase의 admin을 사용해 서버에서 사용자를 인증후 데이터를 가져와야 했다.  
 기본적으로 SSR 환경에서는 보안적인 측면으로 인해 세션 쿠키 방식의 로그인을 사용해야 한다고 함.
 
-```
+```js
 // 로그인
   const siginIn = async (e: React.FormEvent) => {
 
