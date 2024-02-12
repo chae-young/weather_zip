@@ -1,4 +1,5 @@
 <img src="https://github.com/chae-young/weather_zip/assets/28029685/86f1836b-71f9-4bdb-b59f-8c55133fcf09" width="300">
+<img src="https://github.com/chae-young/weather_zip/assets/28029685/b883269f-1877-4321-8ef0-b6d4dc6a7782" width="1000">
 
 **날씨 정보 + 코디 + 기록을 동시에 할 수 있는 하나의 웹어플리케이션**
 
@@ -122,8 +123,8 @@ const LoadMoreLogs = ({ lastDoc, firstDataLength }: LoadMoreLogsProps) => {
 }
 ```
 
-LoadMoreLogs가 스크롤시 데이터를 불러오고 있는 클라이언트 컴포넌트다.
-InfiniteScroll 컴포넌트에서 화면 뷰포트에 닿을시 fetchWeatherLogs함수가 실행되면서 추가 데이터를 불러온다.
+LoadMoreLogs가 스크롤시 데이터를 불러오고 있는 클라이언트 컴포넌트다.  
+InfiniteScroll 컴포넌트에서 화면 뷰포트에 닿을시 fetchWeatherLogs함수가 실행되면서 추가 데이터를 불러온다.  
 프로젝트내 인피니트 스크롤이 들어가는 페이지는 위와 같은 로직으로 구현했다.
 이런식으로 진행하면 초기에는 서버에서 10개의 데이터를 불러오고 사용자의 상호작용이 있을시 클라이언트에서 추가적으로 데이터를 불러오게 된다.
 <br/>
@@ -139,7 +140,12 @@ HTML5에서는 [drag and drop API](https://www.w3schools.com/html/html5_dragandd
     useImageMouseEvent(ref, imageSize, setTags)
 ```
 
-모바일과 pc에서 동시에 동작할 수 있도록 mouse와 touch 이벤트를 hook으로 만들었다.
+모바일과 pc에서 동시에 동작할 수 있도록 두개의 **hook** 으로 만들었다.
+
+- useImageMouseEvent : pc에서 사용하는 mouse 이벤트
+- useImageMouseEvent : 모바일에서 사용하는 touch 이벤트
+
+<br/>
 
 ```
 <li key={tag.id}>
@@ -168,10 +174,11 @@ HTML5에서는 [drag and drop API](https://www.w3schools.com/html/html5_dragandd
 </li>
 ```
 
-드래그 대상인 button에 draggable을 넣고 이벤트를 넣어주면 된다.  
-~start: 사용자가 터치 또는 마우스를 놓는 순간  
-~Move,over: 사용자가 터치 또는 마우스를 움직일때  
-~End: 사용자가 터치 또는 마우스를 뗄떄
+드래그 대상인 button에 draggable을 넣고 이벤트를 넣어주면 된다.
+
+> ~start: 사용자가 터치 또는 마우스를 놓는 순간  
+> ~Move,over: 사용자가 터치 또는 마우스를 움직일때  
+> ~End: 사용자가 터치 또는 마우스를 뗄떄
 
 touch 조작은 쉽다. 구현하면서 오류가 크게 생기지 않았다.  
 원레 onMouseMove를 사용했었는데 드래그가 이상하게 동작했다. 알고보니 onMouseMove는 커서의 움직임을 감지하는 이벤트이고 onDragOver는 드래그된 요소의 위치를 감지하는 동작 이벤트였다.  
