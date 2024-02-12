@@ -3,7 +3,7 @@
 
 **날씨 정보 + 코디 + 기록을 동시에 할 수 있는 하나의 웹어플리케이션**
 
-**<span style="color:#ff8383">✨📱모바일에 최적화 되어있습니다✨</span>**
+**<span style="color:#ff8383">✨📱모바일 퍼스트로 구현 되어있습니다✨</span>**
 
 [📗 프로젝트 노션](https://fixed-rubidium-143.notion.site/zip-65f6d8180154439d9b2e0a6b66cca371?pvs=4)  
 [📗 백로그](https://fixed-rubidium-143.notion.site/324c268d222c43b39c19b23e184300b9?pvs=4)  
