@@ -12,7 +12,7 @@ export interface IrecommendObject {
   temp_max: number
   temp_min: number
 }
-const fetcher = async (temp: number) => {
+export const fetcherRecommendList = async (temp: number) => {
   try {
     const q = query(collection(db, 'recommend'), where('temp_max', '>=', temp))
     const querySnapshot = await getDocs(q)
@@ -40,7 +40,7 @@ export const useGetRecommendList = () => {
     isLoading,
   } = useSWR(
     `recommendation-${currentWeather.temp}`,
-    () => fetcher(Number(currentWeather.temp)),
+    () => fetcherRecommendList(Number(currentWeather.temp)),
     { suspense: true },
   )
 

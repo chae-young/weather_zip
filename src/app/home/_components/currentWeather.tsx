@@ -6,24 +6,14 @@ import { MdPlayArrow } from 'react-icons/md'
 
 import weatherIcons from '@/util/weatherIcons'
 
-import useGetCurrentWeather from '@/hooks/swr/useGetCurrentWeather'
-import SkeletonCurrentWeather from '../_skeleton/SkeletonCurrentWeather'
+import { IcurrentWeather } from '@/types'
 
-const CurrentWeather = () => {
-  const { currentWeather, loaded, isLoading, isValidating, locationError } =
-    useGetCurrentWeather()
+interface ICurrentWeatherProps {
+  currentWeathers: IcurrentWeather
+}
 
-  // error시 처리
-  if (locationError?.code === 1) {
-    alert(locationError.message)
-    return <SkeletonCurrentWeather />
-  }
-
-  const icon = currentWeather.icon && currentWeather.icon.substring(0, 2)
-
-  if (!loaded || isLoading || isValidating) {
-    return <SkeletonCurrentWeather />
-  }
+const CurrentWeather = ({ currentWeathers }: ICurrentWeatherProps) => {
+  const icon = currentWeathers.icon && currentWeathers.icon.substring(0, 2)
 
   return (
     <article
@@ -38,7 +28,7 @@ const CurrentWeather = () => {
     >
       <div className="text-body3 flex justify-center items-center pt-20">
         <HiLocationMarker className="text-body2 mr-1 self-start" />
-        <span>{currentWeather.address}</span>
+        <span>{currentWeathers.address}</span>
       </div>
       {icon && (
         <Image
@@ -46,20 +36,20 @@ const CurrentWeather = () => {
           src={weatherIcons[icon]}
           width={138}
           height={153}
-          alt={currentWeather.desc!}
+          alt={currentWeathers.desc!}
           className="m-auto w-[138px] h-[153px]"
         />
       )}
 
       <div className="text-center mt-4">
-        <b className="text-4xl">{`${currentWeather?.temp}℃`}</b>
+        <b className="text-4xl">{`${currentWeathers?.temp}℃`}</b>
         <p className="text-body4 flex justify-center items-center mt-3">
           <MdPlayArrow className="-rotate-90 text-[#ff5c5c] w-7" />
-          최고온도 {`${currentWeather?.temp_max}℃`}
+          최고온도 {`${currentWeathers?.temp_max}℃`}
         </p>
         <p className="text-body4 flex justify-center items-center">
           <MdPlayArrow className="rotate-90 text-[#67b9fd] w-7" />
-          최저온도 {`${currentWeather?.temp_min}℃`}
+          최저온도 {`${currentWeathers?.temp_min}℃`}
         </p>
       </div>
     </article>

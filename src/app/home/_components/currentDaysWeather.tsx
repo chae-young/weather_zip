@@ -1,56 +1,21 @@
 'use client'
 
-import axios from 'axios'
 import Image from 'next/image'
-import useSWR from 'swr'
-import useGeolocation from '@/hooks/useGeolocation'
 import weatherIcons from '@/util/weatherIcons'
-import SkeletonCurrentDays from '../_skeleton/SkeletonCurrentDays'
+import { ICurrentDayItem, ICurrentDays } from '@/types'
 
-interface ICurrentDay {
-  clouds: { all: number }
-  dt: number
-  dt_txt: string
-  main: {
-    feels_like: number
-    grnd_level: number
-    humidity: number
-    pressure: number
-    sea_level: number
-    temp: number
-    temp_kf: number
-    temp_max: number
-    temp_min: number
-  }
-  pop: number
-  sys: { pod: string }
-  visibility: number
-  weather: [{ id: number; main: string; description: string; icon: string }]
-  wind: { speed: number; deg: number; gust: number }
+interface ICurrentDaysWeatherProps {
+  currentWeatherDays: ICurrentDays
 }
 
-const CurrentDaysWeather = () => {
-  const { coordinates, loaded } = useGeolocation()
-  const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-  const { data, error, isLoading, isValidating } = useSWR(
-    coordinates.lat > 0
-      ? `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&cnt=10&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
-      : null,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    },
-  )
-
-  if (!loaded || isLoading || isValidating) {
-    return <SkeletonCurrentDays />
-  }
-
+const CurrentDaysWeather = ({
+  currentWeatherDays,
+}: ICurrentDaysWeatherProps) => {
   return (
     <div className="w-full">
       <div className="flex overflow-x-auto space-x-8 my-5">
         <div className="flex shrink-0 pl-10">
-          {data?.list.map((day: ICurrentDay) => (
+          {currentWeatherDays?.list.map((day: ICurrentDayItem) => (
             <div className="w-20 flex flex-col items-center" key={day.dt}>
               <div className="w-12 h-12 flex justify-center items-center relative">
                 <Image
