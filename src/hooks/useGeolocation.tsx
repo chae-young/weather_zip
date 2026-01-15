@@ -33,7 +33,7 @@ const useGeolocation = () => {
       coordinates: { lat: 0, lng: 0 },
       error: {
         code: 1,
-        message: '현재위치 설정을 허용해주세요.',
+        message: 'OS나 현재 브라우저의 현재위치 설정을 허용해주세요.',
       },
     })
   }
@@ -54,6 +54,10 @@ const useGeolocation = () => {
     }
     navigator.geolocation.getCurrentPosition(onSuccess, onError, options)
   }, [])
+
+  useEffect(() => {
+    console.log(location)
+  }, [location])
 
   return location
 }

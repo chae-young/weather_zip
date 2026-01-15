@@ -5,15 +5,19 @@ import SkeletonRecommendList from '../_skeleton/SkeletonRecommendList'
 import { useGetRecommendList } from '@/hooks/swr/useGetRecommendList'
 
 const RecommendList = () => {
-  const { recommendList, isValidating } = useGetRecommendList()
+  const { recommendList, isValidating, isLoading } = useGetRecommendList()
 
-  // if (isValidating && !recommendList) {
-  //   return <SkeletonRecommendList />
-  // }
+  if (isLoading || isValidating) {
+    return <SkeletonRecommendList />
+  }
+
+  if (isValidating && !recommendList) {
+    return <SkeletonRecommendList />
+  }
 
   return (
     <section>
-      {recommendList?.list.length > 0 ? (
+      {recommendList?.list?.length && recommendList?.list?.length > 0 ? (
         <>
           <h3 className="text-h4 mb-3">{recommendList?.title}</h3>
           <div className="flex overflow-x-auto space-x-8 mb-6">

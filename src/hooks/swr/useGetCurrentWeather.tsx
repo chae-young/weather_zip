@@ -1,10 +1,10 @@
 import currentTempAtom from '@/recoil/atom/currentTempAtom'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import useSWR from 'swr'
-import useGeolocation from '../useGeolocation'
 import useGetAddress from './useGetAddress'
+import coordinatesAtom from '@/recoil/atom/coordinatedAtom'
 
 export type TcurrentWeather = {
   address?: string
@@ -29,13 +29,18 @@ const fetcher = (url: string): Promise<TcurrentWeather> => {
 }
 
 const useGetCurrentWeather = () => {
-  const { coordinates, loaded, error: locationError } = useGeolocation()
+  const {
+    lat,
+    lng,
+    error: locationError,
+    loaded,
+  } = useRecoilValue(coordinatesAtom)
   const [currentTemp, setCurrentTemp] = useRecoilState(currentTempAtom)
-  const { currentAddress } = useGetAddress(coordinates.lat, coordinates.lng)
+  const { currentAddress } = useGetAddress(lat, lng)
 
   const { data, isLoading, isValidating, error } = useSWR(
-    coordinates.lat > 0
-      ? `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
+    lat > 0
+      ? `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=kr&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
       : null,
     fetcher,
     {
@@ -53,12 +58,12 @@ const useGetCurrentWeather = () => {
       ...prev,
       temp: currentWeather.temp,
     }))
-  }, [currentWeather.temp])
+  }, [currentWeather.temp, setCurrentTemp])
 
   return {
     currentWeather,
     loaded,
-    coordinates,
+    coordinates: { lat, lng },
     locationError,
     isLoading,
     isValidating,

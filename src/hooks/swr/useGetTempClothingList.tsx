@@ -1,16 +1,8 @@
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore'
-import { db } from '../../../firebase/firebasedb'
 import useSWR, { useSWRConfig } from 'swr'
 import { useRecoilValue } from 'recoil'
 import currentTempAtom from '@/recoil/atom/currentTempAtom'
 import useGeolocation from '../useGeolocation'
+import coordinatesAtom from '@/recoil/atom/coordinatedAtom'
 
 export interface ItempClothing {
   id: string
@@ -18,46 +10,31 @@ export interface ItempClothing {
   userId: string
 }
 const fetcher = async (temp: number, uid: string) => {
-  const tempMax = temp + 5
-  const tempMin = temp - 5
+  const res = await fetch(`/api/temp-clothing?temp=${temp}`)
 
-  try {
-    const q = query(
-      collection(db, 'collection'),
-      where('userId', '==', uid),
-      where('weather.temp', '>=', tempMin),
-      where('weather.temp', '<=', tempMax),
-      orderBy('weather.temp'),
-      orderBy('timestamp', 'desc'),
-      limit(10),
-    )
-    const querySnapshot = await getDocs(q)
-    const data: ItempClothing[] = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      fullbody_image: doc.data().fullbody_image,
-      userId: doc.data().userId,
-    }))
-
-    return data
-  } catch (err) {
-    console.error(err)
-    throw ''
+  if (!res.ok) {
+    if (res.status === 401) return []
+    throw new Error('Faild to fetch')
   }
+
+  return res.json()
 }
 
 export const useGetTempClothingList = (isLogged: boolean, uid: string) => {
   const { mutate } = useSWRConfig()
-  const { loaded } = useGeolocation()
+  const { loaded } = useRecoilValue(coordinatesAtom)
   const currentWeather = useRecoilValue(currentTempAtom)
   const {
     data: tempClothingList,
     isValidating,
     isLoading,
   } = useSWR<ItempClothing[]>(
-    `tempclothing-${currentWeather.temp}-user-${isLogged}`,
+    currentWeather.temp
+      ? `tempclothing-${currentWeather.temp}-user-${isLogged}`
+      : null,
     () => fetcher(Number(currentWeather.temp), uid),
     {
-      suspense: true,
+      suspense: false,
       revalidateOnMount: false,
       revalidateOnFocus: false,
     },

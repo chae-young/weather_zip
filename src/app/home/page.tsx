@@ -1,27 +1,16 @@
-import dynamic from 'next/dynamic'
 import fetchUser from '@/app/user/fetchUser'
 import Nav from '../_components/common/Nav'
-const RecommendList = dynamic(() => import('./_components/RecommendList'), {
-  ssr: false,
-})
-const TempClothing = dynamic(() => import('./_components/TempClothingList'), {
-  ssr: false,
-})
-
-const CurrentWeather = dynamic(() => import('./_components/currentWeather'), {
-  ssr: false,
-})
-const CurrentDaysWeather = dynamic(
-  () => import('./_components/currentDaysWeather'),
-  {
-    ssr: false,
-  },
-)
+import RecommendList from './_components/RecommendList'
+import TempClothing from './_components/TempClothingList'
+import CurrentWeather from './_components/currentWeather'
+import CurrentDaysWeather from './_components/currentDaysWeather'
+import GeolocationInitializer from './_components/GeolocationInitializer'
 
 const Home = async () => {
   const user = await fetchUser()
   return (
     <>
+      <GeolocationInitializer />
       <section className="bg-pointBg flex flex-col justify-center items-center relative overflow-hidden">
         <CurrentWeather />
         <CurrentDaysWeather />
