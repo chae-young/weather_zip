@@ -3,9 +3,10 @@
 import axios from 'axios'
 import Image from 'next/image'
 import useSWR from 'swr'
-import useGeolocation from '@/hooks/useGeolocation'
 import weatherIcons from '@/util/weatherIcons'
 import SkeletonCurrentDays from '../_skeleton/SkeletonCurrentDays'
+import { useRecoilValue } from 'recoil'
+import coordinatesAtom from '@/recoil/atom/coordinatedAtom'
 
 interface ICurrentDay {
   clouds: { all: number }
@@ -30,11 +31,11 @@ interface ICurrentDay {
 }
 
 const CurrentDaysWeather = () => {
-  const { coordinates, loaded } = useGeolocation()
+  const { lat, lng, loaded } = useRecoilValue(coordinatesAtom)
   const fetcher = (url: string) => axios.get(url).then((res) => res.data)
   const { data, error, isLoading, isValidating } = useSWR(
-    coordinates.lat > 0
-      ? `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lng}&lang=kr&cnt=10&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
+    lat > 0
+      ? `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&lang=kr&cnt=10&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_APIKEY}`
       : null,
     fetcher,
     {
